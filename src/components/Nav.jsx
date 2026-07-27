@@ -1,28 +1,26 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { Menu, X, ArrowUpRight, ArrowUp } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, ArrowUp } from 'lucide-react'
 import { smoothTo, navClick } from '../utils/smoothScroll'
 
 const links = [
-  { href: '#work',     label: 'Selected Work' },
+  { href: '#home',     label: 'Home' },
+  { href: '#work',     label: 'Portfolio' },
   { href: '#about',    label: 'Capabilities' },
-  { href: '#pipeline', label: 'AI Process' },
+  { href: '#pipeline', label: 'Process' },
   { href: '#contact',  label: 'Contact' },
 ]
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [activeId, setActiveId] = useState('')
-
-  const { scrollYProgress } = useScroll()
-  const progressScaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const [activeId, setActiveId] = useState('home')
 
   useEffect(() => {
     const ids = links.map(l => l.href.slice(1))
     const update = () => {
       setScrolled(window.scrollY > 40)
-      let found = ''
+      let found = 'home'
       for (const id of ids) {
         const el = document.getElementById(id)
         if (!el) continue
@@ -38,43 +36,30 @@ export default function Nav() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 py-4 px-4 sm:px-8 transition-all duration-300"
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#000000]/90 backdrop-blur-xl border-b border-white/10 py-4'
+            : 'bg-transparent py-6'
+        }`}
       >
-        <motion.div
-          style={{
-            scaleX: progressScaleX,
-            originX: 0,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '2px',
-            background: 'linear-gradient(90deg, #6366f1, #a855f7)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <nav className="max-w-6xl mx-auto flex items-center justify-between p-3 sm:px-6 sm:py-3.5 rounded-full nubien-card bg-[#0e0e14]/80 backdrop-blur-xl border border-white/10 shadow-2xl">
-          {/* Brand Logo */}
+        <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
           <a
-            href="#"
-            onClick={e => navClick(e, '#')}
-            className="flex items-center gap-2.5 px-2"
+            href="#home"
+            onClick={e => navClick(e, '#home')}
+            className="flex items-center gap-3 group"
           >
-            <div className="w-8 h-8 rounded-full bg-white text-black font-black flex items-center justify-center text-xs tracking-tighter">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-600/30">
               MJ
             </div>
-            <span className="text-sm font-bold text-white tracking-tight hidden sm:inline-block">
-              MUHAMMED JAMAL
+            <span className="text-white font-semibold tracking-tight text-base">
+              Muhammed Jamal
             </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <ul className="hidden md:flex items-center gap-1 sm:gap-2">
+          <ul className="hidden md:flex items-center gap-8">
             {links.map(({ href, label }) => {
               const id = href.slice(1)
               const isActive = activeId === id
@@ -83,10 +68,8 @@ export default function Nav() {
                   <a
                     href={href}
                     onClick={e => navClick(e, href)}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
-                      isActive
-                        ? 'bg-white/10 text-white border border-white/15'
-                        : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    className={`text-sm font-medium transition-colors ${
+                      isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
                     {label}
@@ -96,85 +79,69 @@ export default function Nav() {
             })}
           </ul>
 
-          {/* CTA Action */}
-          <div className="flex items-center gap-3">
+          {/* Right Action Button */}
+          <div className="flex items-center gap-4">
             <a
               href="#contact"
               onClick={e => navClick(e, '#contact')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-white text-black hover:bg-zinc-200 transition-all duration-200"
+              className="hidden sm:inline-flex items-center px-5 py-2.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/25"
             >
-              <span>Get In Touch</span>
-              <ArrowUpRight size={14} />
+              Get In Touch
             </a>
 
-            {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-2 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="md:hidden text-zinc-300 hover:text-white p-2"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
-              {open ? <X size={20} /> : <Menu size={20} />}
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
-      {/* Mobile Overlay Menu */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 flex flex-col pt-28 px-6 bg-[#08080c]/98 backdrop-blur-2xl"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl pt-24 px-6 md:hidden"
           >
-            <ul className="flex flex-col gap-4">
-              {links.map(({ href, label }, i) => (
-                <motion.li
-                  key={href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
+            <ul className="flex flex-col gap-6">
+              {links.map(({ href, label }) => (
+                <li key={href}>
                   <a
                     href={href}
                     onClick={e => { navClick(e, href); setOpen(false) }}
-                    className="text-2xl font-bold text-white flex items-center justify-between py-3 border-b border-white/5"
+                    className="text-2xl font-semibold text-white py-2 block border-b border-zinc-800"
                   >
-                    <span>{label}</span>
-                    <ArrowUpRight size={20} className="text-zinc-500" />
+                    {label}
                   </a>
-                </motion.li>
+                </li>
               ))}
             </ul>
             <a
               href="#contact"
               onClick={e => { navClick(e, '#contact'); setOpen(false) }}
-              className="mt-8 flex items-center justify-center gap-2 py-4 rounded-2xl bg-white text-black font-bold text-base"
+              className="mt-8 flex items-center justify-center py-4 rounded-xl bg-indigo-600 text-white font-semibold"
             >
-              <span>Get In Touch</span>
-              <ArrowUpRight size={18} />
+              Get In Touch
             </a>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Back to top button */}
-      <AnimatePresence>
-        {scrolled && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={() => smoothTo(0)}
-            className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-zinc-900/90 border border-white/15 text-white flex items-center justify-center backdrop-blur-xl shadow-xl hover:bg-white hover:text-black transition-all"
-            aria-label="Back to top"
-          >
-            <ArrowUp size={16} />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* Back to top */}
+      {scrolled && (
+        <button
+          onClick={() => smoothTo(0)}
+          className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-zinc-900 border border-white/10 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 transition-all"
+        >
+          <ArrowUp size={16} />
+        </button>
+      )}
     </>
   )
 }

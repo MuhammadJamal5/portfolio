@@ -1,51 +1,37 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Play, ArrowUpRight } from 'lucide-react'
+import { Play } from 'lucide-react'
 import VideoLightbox from '../components/VideoLightbox'
 import { featured, shorts, thumbUrl } from '../data/videos'
 
 function VideoCard({ video, onOpen, isShort = false }) {
   return (
     <motion.button
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -6 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -5 }}
       onClick={() => onOpen(video)}
-      className="group relative block w-full nubien-card overflow-hidden text-left cursor-pointer"
+      className="group relative block w-full bg-zinc-950 rounded-2xl overflow-hidden border border-white/10 text-left cursor-pointer transition-all hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/10"
       style={{ aspectRatio: isShort ? '9 / 16' : '16 / 9' }}
     >
-      {/* Thumbnail */}
       <img
         src={thumbUrl(video.id)}
         alt={video.title}
         loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-
-      {/* Gradient Overlay */}
-      <div
-        className="absolute inset-0 transition-opacity duration-300"
-        style={{
-          background:
-            'linear-gradient(to top, rgba(8,8,12,0.95) 0%, rgba(8,8,12,0.2) 50%, rgba(8,8,12,0.4) 100%)',
-        }}
-      />
-
-      {/* Play Icon Badge */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20" />
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
-          <Play size={20} className="translate-x-[1px]" fill="currentColor" />
+        <div className="w-12 h-12 rounded-full bg-indigo-600/90 text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+          <Play size={18} className="translate-x-[1px]" fill="currentColor" />
         </div>
       </div>
-
-      {/* Video Info Bottom Meta */}
-      <div className="absolute left-0 right-0 bottom-0 p-5 sm:p-6 flex flex-col gap-2">
-        <span className="inline-self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/10 text-white backdrop-blur-md border border-white/15 w-fit">
+      <div className="absolute bottom-0 inset-x-0 p-5">
+        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-white backdrop-blur-md mb-2 border border-white/10">
           {video.category}
         </span>
-        <h3 className="text-white font-bold text-lg sm:text-xl leading-snug">
+        <h3 className="text-white font-semibold text-base sm:text-lg leading-snug">
           {video.title}
         </h3>
       </div>
@@ -57,25 +43,21 @@ export default function Work() {
   const [activeVideo, setActiveVideo] = useState(null)
 
   return (
-    <section id="work" className="py-28 px-4 sm:px-8 relative bg-[#08080c]">
+    <section id="work" className="py-28 px-6 bg-[#000000] relative text-center">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <div className="nubien-badge mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-              <span>SELECTED WORKS</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              PROVEN COMMERCIAL & CREATIVE OUTPUT.
-            </h2>
-          </div>
-          <p className="max-w-md text-zinc-400 text-sm leading-relaxed">
-            From high-converting SaaS product demos to narrative brand films and viral social reels. Click any piece to play.
+        <div className="mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-indigo-400 font-medium mb-4">
+            Portfolio
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-semibold text-white tracking-tight mb-4">
+            Featured Projects & Works.
+          </h2>
+          <p className="text-zinc-400 text-base max-w-xl mx-auto">
+            High-impact brand films, SaaS demos, and viral social reels engineered for conversion.
           </p>
         </div>
 
-        {/* Featured 16:9 Landscape Videos Grid */}
+        {/* Featured 16:9 Landscape Videos */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {featured.map(v => (
             <VideoCard key={v.id} video={v} onOpen={setActiveVideo} />

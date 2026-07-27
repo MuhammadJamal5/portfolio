@@ -1,139 +1,117 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Sparkles, Film, Cpu, Zap, Radio } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { navClick } from '../utils/smoothScroll'
 
-const techStack = [
-  'Premiere Pro',
-  'After Effects',
-  'ComfyUI',
-  'Runway Gen-3',
-  'ElevenLabs AI',
-  'DaVinci Resolve',
-  'HeyGen LipSync',
-  'Midjourney v6',
-]
-
-const stats = [
-  { value: '3+', label: 'Years Experience' },
-  { value: '10+', label: 'Videos / Month' },
-  { value: '30%', label: 'Faster AI Pipeline' },
-  { value: '8+', label: 'Global Brands' },
+const techLogos = [
+  { name: 'Premiere Pro', label: 'PREMIERE' },
+  { name: 'After Effects', label: 'AFTER EFFECTS' },
+  { name: 'ComfyUI', label: 'COMFYUI' },
+  { name: 'Runway', label: 'RUNWAY GEN-3' },
+  { name: 'ElevenLabs', label: 'ELEVENLABS' },
 ]
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center pt-32 pb-20 px-4 sm:px-8 overflow-hidden nubien-grid-bg"
+      className="relative min-h-screen flex flex-col justify-between pt-36 pb-12 px-6 overflow-hidden bg-[#000000] text-center"
     >
-      {/* Background ambient radial gradients */}
+      {/* Background ambient lighting */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle 800px at 50% 20%, rgba(99,102,241,0.12), transparent 70%), radial-gradient(circle 600px at 80% 70%, rgba(168,85,247,0.06), transparent 60%)',
+            'radial-gradient(ellipse 60% 40% at 50% 10%, rgba(99, 102, 241, 0.15) 0%, transparent 60%)',
         }}
       />
 
-      <div className="max-w-6xl mx-auto w-full relative z-10">
-        {/* Eyebrow Pill */}
+      <div className="max-w-5xl mx-auto w-full relative z-10 flex flex-col items-center my-auto">
+        {/* Eyebrow Pill Badge */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 font-medium mb-8"
         >
-          <div className="nubien-badge">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>AI MOTION ARTIST & SENIOR VIDEO EDITOR</span>
-          </div>
+          <span className="px-2 py-0.5 rounded-full bg-indigo-600 text-white font-bold text-[10px]">
+            2026
+          </span>
+          <span>Next-Gen AI & Video Studio</span>
         </motion.div>
 
-        {/* Main Massive Headline */}
-        <motion.div
+        {/* Main Nubien Headline */}
+        <motion.h1
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-5xl mb-8"
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-white leading-[1.08] max-w-4xl mb-6"
+          style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
         >
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.98] text-white">
-            CRAFTING HIGH-IMPACT{' '}
-            <span className="nubien-text-glow">AI MOTION & VIDEO</span> PRODUCTIONS.
-          </h1>
-        </motion.div>
+          AI–Driven Video Production <br />
+          <span className="text-white">Redefining Storytelling.</span>
+        </motion.h1>
 
-        {/* Subtitle Paragraph */}
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl text-base sm:text-xl text-zinc-400 leading-relaxed mb-10 font-normal"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="max-w-xl text-base sm:text-lg text-zinc-400 font-normal leading-relaxed mb-10"
         >
-          Psychology-driven storytelling meets cutting-edge generative AI. Crafting high-converting brand films, SaaS demos, and viral social spots engineered to stop the scroll.
+          Psychology-driven storytelling meets cutting-edge AI production. <br className="hidden sm:inline" />
+          Engineering high-converting brand films and viral social reels.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* Hero Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16"
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex flex-row items-center justify-center gap-4"
         >
           <a
             href="#work"
             onClick={e => navClick(e, '#work')}
-            className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-lg group"
+            className="px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-all shadow-xl"
           >
-            <span>Explore Selected Work</span>
-            <ArrowDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
+            Connect With Us
           </a>
 
           <a
-            href="mailto:mg32871@gmail.com"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full nubien-card text-white font-semibold text-sm hover:bg-white/10 transition-all duration-200"
+            href="#about"
+            onClick={e => navClick(e, '#about')}
+            className="px-7 py-3.5 rounded-full bg-indigo-600/30 border border-indigo-500/40 text-indigo-200 font-semibold text-sm hover:bg-indigo-600/50 transition-all backdrop-blur-md shadow-lg shadow-indigo-600/20"
           >
-            <span>Let's Talk Project</span>
-            <ArrowUpRight size={16} className="text-zinc-400" />
+            What is Studio?
           </a>
         </motion.div>
+      </div>
 
-        {/* Stats Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8 nubien-card mb-16"
-        >
-          {stats.map(({ value, label }) => (
-            <div key={label} className="flex flex-col gap-1">
-              <span className="text-3xl sm:text-4xl font-black text-white">{value}</span>
-              <span className="text-xs text-zinc-400 font-medium">{label}</span>
-            </div>
+      {/* Hero Bottom Glowing Neon Dome & Logo Bar */}
+      <div className="relative w-full max-w-5xl mx-auto pt-16 pb-4 z-10">
+        {/* Curved Glowing Arch/Dome (Exact match to Nubien screenshot) */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[180px] rounded-t-[100%] pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99, 102, 241, 0.45) 0%, rgba(139, 92, 246, 0.25) 45%, transparent 75%)',
+            borderTop: '1px solid rgba(165, 180, 252, 0.35)',
+            boxShadow: '0 -20px 50px rgba(99, 102, 241, 0.2)',
+          }}
+        />
+
+        {/* Partner Logos Strip */}
+        <div className="relative z-10 flex items-center justify-center gap-8 sm:gap-14 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+          {techLogos.map(logo => (
+            <span
+              key={logo.name}
+              className="text-xs sm:text-sm font-bold tracking-widest text-zinc-400 uppercase"
+            >
+              {logo.label}
+            </span>
           ))}
-        </motion.div>
-
-        {/* Tech Stack Marquee Strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="pt-6 border-t border-white/10"
-        >
-          <p className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-4">
-            Production Engine & AI Stack
-          </p>
-          <div className="flex flex-wrap items-center gap-2.5">
-            {techStack.map(tool => (
-              <span
-                key={tool}
-                className="px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-xs font-medium text-zinc-300"
-              >
-                {tool}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

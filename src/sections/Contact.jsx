@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Mail, Link2, ArrowUpRight, Copy, Check } from 'lucide-react'
+import { Mail, Link2, Copy, Check } from 'lucide-react'
 import { useState } from 'react'
 
 export default function Contact() {
@@ -13,67 +13,60 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-28 px-4 sm:px-8 bg-[#08080c] relative nubien-grid-bg">
-      <div className="max-w-6xl mx-auto">
-        {/* Main CTA Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="nubien-card p-8 sm:p-14 relative overflow-hidden text-center sm:text-left flex flex-col md:flex-row items-center justify-between gap-10"
-        >
-          <div className="max-w-2xl">
-            <div className="nubien-badge mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>START A PROJECT</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight mb-6">
-              LET'S BUILD SOMETHING <span className="nubien-text-glow">EXTRAORDINARY</span> TOGETHER.
-            </h2>
-            <p className="text-zinc-400 text-base sm:text-lg max-w-xl">
-              Have an upcoming brand film, SaaS demo, or AI video campaign? Reach out directly and let's craft content that converts.
-            </p>
-          </div>
+    <section id="contact" className="py-28 px-6 bg-[#000000] relative text-center overflow-hidden">
+      {/* Nubien Glowing Dome Background in Footer */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[300px] rounded-t-[100%] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99, 102, 241, 0.4) 0%, rgba(139, 92, 246, 0.2) 45%, transparent 75%)',
+          borderTop: '1px solid rgba(165, 180, 252, 0.3)',
+          boxShadow: '0 -20px 60px rgba(99, 102, 241, 0.2)',
+        }}
+      />
 
-          <div className="flex flex-col gap-4 w-full sm:w-auto shrink-0">
-            <a
-              href={`mailto:${email}`}
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-xl"
-            >
-              <Mail size={16} />
-              <span>Send Direct Email</span>
-            </a>
+      <div className="max-w-4xl mx-auto relative z-10">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-indigo-400 font-medium mb-6">
+          Get In Touch
+        </span>
+        <h2 className="text-4xl sm:text-6xl font-normal text-white tracking-tight leading-tight mb-6">
+          Ready to Elevate Your <br />
+          <span className="text-white">Visual Content?</span>
+        </h2>
+        <p className="text-zinc-400 text-base sm:text-lg max-w-xl mx-auto mb-10">
+          Have an upcoming brand film, SaaS product demo, or AI video campaign? Let's connect and build something extraordinary.
+        </p>
 
-            <button
-              onClick={copyEmail}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full nubien-card text-white font-semibold text-sm hover:bg-white/10 transition-all duration-200"
-            >
-              {copied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
-              <span>{copied ? 'Copied Email!' : 'Copy Email Address'}</span>
-            </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <a
+            href={`mailto:${email}`}
+            className="px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-600/30"
+          >
+            Connect With Us
+          </a>
 
+          <button
+            onClick={copyEmail}
+            className="px-8 py-4 rounded-full bg-white/10 border border-white/15 text-white font-semibold text-sm hover:bg-white/20 transition-all"
+          >
+            {copied ? 'Copied Email!' : 'Copy Email Address'}
+          </button>
+        </div>
+
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+          <p>© {new Date().getFullYear()} Muhammed Jamal. All rights reserved.</p>
+          <div className="flex items-center gap-6">
             <a
               href="https://www.linkedin.com/in/muhammedjamalvfx/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/10 text-zinc-300 font-semibold text-sm hover:bg-white/5 transition-all duration-200"
+              className="hover:text-white transition-colors"
             >
-              <Link2 size={16} />
-              <span>Connect on LinkedIn</span>
-              <ArrowUpRight size={14} className="text-zinc-500" />
+              LinkedIn
             </a>
-          </div>
-        </motion.div>
-
-        {/* Footer Bottom Strip */}
-        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-medium">
-          <p>© {new Date().getFullYear()} Muhammed Jamal. All rights reserved.</p>
-          <p className="flex items-center gap-2">
-            <span>Cairo, Egypt</span>
             <span>·</span>
-            <span>AI Motion Studio</span>
-          </p>
+            <span>Cairo, Egypt</span>
+          </div>
         </div>
       </div>
     </section>
