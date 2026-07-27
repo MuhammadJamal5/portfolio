@@ -4,13 +4,6 @@
 
 export const featured = [
   {
-    id: '1PWLusEaHT6oIyUyznfLOkwokybKTs3EC',
-    title: 'Featured Reel & Showcase',
-    category: 'Commercial / Showcase',
-    provider: 'drive',
-    orientation: 'landscape',
-  },
-  {
     id: 'LS0lPuzL5h4',
     title: 'SaaS & Tech Product Demo',
     category: 'SaaS & Tech',
