@@ -20,8 +20,8 @@ export const featured = [
 export const shorts = [
   {
     id: 'HbhVcYkjees',
-    title: 'AI Motion & VFX Reel',
-    category: 'AI / Motion',
+    title: 'Bath & Body Works — Product Video (Spec)',
+    category: 'Commercial / Ad',
     orientation: 'short',
   },
   {
