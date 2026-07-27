@@ -4,8 +4,8 @@
 
 export const featured = [
   {
-    id: '1C7EVca3osBPvAfsvCig-WKABuZSOuKk0',
-    title: 'Featured Video Showcase (Drive)',
+    id: '1PWLusEaHT6oIyUyznfLOkwokybKTs3EC',
+    title: 'Featured Reel & Showcase',
     category: 'Commercial / Showcase',
     provider: 'drive',
     orientation: 'landscape',
