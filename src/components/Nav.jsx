@@ -8,6 +8,7 @@ const links = [
   { href: '#work',     label: 'Portfolio' },
   { href: '#about',    label: 'Capabilities' },
   { href: '#pipeline', label: 'Process' },
+  { href: '#faq',      label: 'FAQ' },
   { href: '#contact',  label: 'Contact' },
 ]
 
