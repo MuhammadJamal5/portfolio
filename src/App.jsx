@@ -22,10 +22,10 @@ export default function App() {
     if (isTouch) return
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
+      duration: 0.6,
+      wheelMultiplier: 1.3,
+      touchMultiplier: 1.5,
+      infinite: false,
     })
 
     setLenis(lenis)
