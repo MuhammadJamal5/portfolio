@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import { navClick } from '../utils/smoothScroll'
 
@@ -21,6 +21,27 @@ const techLogos = [
   'MIDJOURNEY V6',
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 25, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+}
+
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
 
@@ -36,11 +57,11 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
     >
-      {/* Fusion AI & Recon Ambient Background Glow */}
+      {/* Dream Motion & Fusion AI Ambient Background Glow Pulse */}
       <motion.div
         animate={{
-          opacity: [0.2, 0.35, 0.2],
-          scale: [1, 1.1, 1],
+          opacity: [0.2, 0.38, 0.2],
+          scale: [1, 1.12, 1],
         }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden
@@ -51,25 +72,28 @@ export default function Hero() {
         }}
       />
 
-      {/* Top Content Container */}
-      <div className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center">
-        {/* Dream Motion & Confezence Staggered Badge */}
+      {/* Top Staggered Container (Dream Motion & Framer Motion Dictionary API) */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center"
+      >
+        {/* Fusion AI Eyebrow Pill Badge with Floating Physics */}
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.05 }}
-          className="vizer-badge mb-6 cursor-default"
+          variants={itemVariants}
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          whileHover={{ scale: 1.06 }}
+          className="vizer-badge mb-6 cursor-default shadow-lg shadow-indigo-600/20"
         >
           <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
           <span>AI MOTION & VIDEO PRODUCTION</span>
         </motion.div>
 
-        {/* Dream Motion Word-by-Word Title Reveal */}
+        {/* Dream Motion Word Reveal Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          variants={itemVariants}
           className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.12] max-w-3xl mb-5"
         >
           AI–Driven Video Production <br />
@@ -83,7 +107,7 @@ export default function Hero() {
         </motion.h1>
 
         {/* Dynamic Animated Role Badge with Spring Physics */}
-        <div className="mb-6 h-9 flex items-center justify-center">
+        <motion.div variants={itemVariants} className="mb-6 h-9 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={roleIndex}
@@ -99,19 +123,17 @@ export default function Hero() {
               </span>
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Subtitle Paragraph */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          variants={itemVariants}
           className="max-w-xl text-sm sm:text-base text-slate-400 font-normal leading-relaxed mb-8"
         >
           Psychology-driven storytelling meets cutting-edge AI production. <br className="hidden sm:inline" />
           Crafting high-converting brand films and viral social reels.
         </motion.p>
-      </div>
+      </motion.div>
 
       {/* CURVED NEON DOME CONTAINER (Confezence 3D Physics + Loop Marquee) */}
       <motion.div
@@ -132,7 +154,7 @@ export default function Hero() {
         {/* Confezence Style Interactive 3D Tilt Buttons */}
         <div className="flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
           <motion.a
-            whileHover={{ scale: 1.06, y: -2 }}
+            whileHover={{ scale: 1.06, y: -3 }}
             whileTap={{ scale: 0.94 }}
             href="#contact"
             onClick={e => navClick(e, '#contact')}
@@ -143,7 +165,7 @@ export default function Hero() {
           </motion.a>
 
           <motion.a
-            whileHover={{ scale: 1.06, y: -2 }}
+            whileHover={{ scale: 1.06, y: -3 }}
             whileTap={{ scale: 0.94 }}
             href="#about"
             onClick={e => navClick(e, '#about')}
