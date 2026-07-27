@@ -46,6 +46,8 @@ export default function Preloader({ onComplete }) {
     }, 800);
   };
 
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768);
+
   return (
     <AnimatePresence>
       {!isExiting && (
@@ -53,7 +55,7 @@ export default function Preloader({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{ y: '-100%', opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[99999] bg-[#06060a] flex flex-col items-center justify-between p-8 sm:p-12 overflow-hidden font-montserrat select-none cursor-pointer"
+          className="fixed inset-0 h-[100dvh] z-[99999] bg-[#06060a] flex flex-col items-center justify-between p-6 sm:p-12 overflow-hidden font-montserrat select-none cursor-pointer"
           onClick={() => isReady && !isExiting && handleEnter()}
         >
           {/* Ambient radial glow */}
@@ -69,13 +71,13 @@ export default function Preloader({ onComplete }) {
                 Muhammed Jamal
               </span>
             </div>
-            <span className="text-xs font-mono text-indigo-400/80">PORTFOLIO v2026</span>
+            <span className="text-[10px] sm:text-xs font-mono text-indigo-400/80">PORTFOLIO v2026</span>
           </div>
 
           {/* Center Stage */}
           <div className="relative z-10 flex flex-col items-center text-center max-w-lg">
             {/* Progress Percentage */}
-            <div className="relative mb-6">
+            <div className="relative mb-4 sm:mb-6">
               <motion.span
                 key={progress}
                 initial={{ opacity: 0.8 }}
@@ -88,7 +90,7 @@ export default function Preloader({ onComplete }) {
             </div>
 
             {/* Loading Bar */}
-            <div className="w-64 sm:w-80 h-1.5 bg-white/10 rounded-full overflow-hidden mb-8 border border-white/5">
+            <div className="w-56 sm:w-80 h-1.5 bg-white/10 rounded-full overflow-hidden mb-6 sm:mb-8 border border-white/5">
               <motion.div
                 className="h-full bg-gradient-to-r from-indigo-500 via-indigo-400 to-purple-400 rounded-full"
                 style={{ width: `${progress}%` }}
@@ -103,9 +105,8 @@ export default function Preloader({ onComplete }) {
                   initial={{ opacity: 0, scale: 0.9, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="flex flex-col sm:flex-row items-center gap-3"
+                  className="flex items-center justify-center"
                 >
-                  {/* Enter Key Visual Pill */}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -113,10 +114,10 @@ export default function Preloader({ onComplete }) {
                       e.stopPropagation();
                       handleEnter();
                     }}
-                    className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 transition-all border border-indigo-400/30 group"
+                    className="flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 transition-all border border-indigo-400/30 group"
                   >
                     <CornerDownLeft size={16} className="text-indigo-200 group-hover:translate-x-0.5 transition-transform" />
-                    <span>PRESS ENTER TO EXPLORE</span>
+                    <span>{isTouchDevice ? 'TAP TO EXPLORE' : 'PRESS ENTER TO EXPLORE'}</span>
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </motion.button>
                 </motion.div>

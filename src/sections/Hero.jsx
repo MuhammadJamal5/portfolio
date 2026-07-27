@@ -153,11 +153,11 @@ export default function Hero() {
         initial={{ opacity: 0, y: 50, scale: 0.94 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-5xl mx-auto w-[95%] sm:w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between"
+        className="relative max-w-5xl mx-auto w-full pt-8 sm:pt-10 pb-6 rounded-t-[40px] sm:rounded-t-[100px] md:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between"
       >
         {/* Animated glow dome */}
         <div
-          className="absolute inset-0 rounded-t-[100px] sm:rounded-t-[180px] pointer-events-none animate-dome-glow"
+          className="absolute inset-0 rounded-t-[40px] sm:rounded-t-[100px] md:rounded-t-[180px] pointer-events-none animate-dome-glow"
           style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.4) 0%, rgba(139,92,246,0.18) 50%, transparent 80%)' }}
         />
 

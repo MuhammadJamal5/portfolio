@@ -90,18 +90,18 @@ export default function Pipeline() {
           viewport={{ once: true, margin: '-100px' }}
           className="relative"
         >
-          {/* Connecting Line (Desktop: Horizontal, Mobile: Vertical) */}
-          <div className="absolute top-0 left-8 md:left-1/2 lg:left-0 lg:top-24 bottom-0 lg:bottom-auto lg:right-0 w-0.5 lg:w-full lg:h-0.5 bg-white/5 -translate-x-1/2 lg:translate-x-0">
+          {/* Connecting Line (Desktop: Horizontal) */}
+          <div className="hidden lg:block absolute lg:left-0 lg:top-24 lg:right-0 lg:w-full lg:h-0.5 bg-white/5 lg:translate-x-0">
             <motion.div
               initial={{ height: 0, width: 0 }}
               whileInView={{ height: '100%', width: '100%' }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className="w-full h-full bg-gradient-to-b lg:bg-gradient-to-r from-indigo-500/0 via-indigo-500 to-indigo-500/0 origin-top lg:origin-left"
+              className="w-full h-full bg-gradient-to-r from-indigo-500/0 via-indigo-500 to-indigo-500/0 origin-left"
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-6 pt-10 lg:pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-6">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (

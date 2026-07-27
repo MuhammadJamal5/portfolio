@@ -57,7 +57,7 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
+    if (!ref.current || window.innerWidth < 768) return;
     const rect = ref.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -75,13 +75,15 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
     setIsHovered(false);
   };
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      style={{ rotateX: isMobile ? 0 : rotateX, rotateY: isMobile ? 0 : rotateY, transformStyle: "preserve-3d" }}
       variants={itemVariants}
       className="vizer-card relative flex flex-col p-5 sm:p-6 md:p-8 overflow-hidden rounded-[20px] bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 group cursor-pointer h-auto min-h-[220px] sm:min-h-[240px] md:h-64 shadow-xl"
     >

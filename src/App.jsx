@@ -16,27 +16,30 @@ import { setLenis } from './utils/smoothScroll'
 export default function App() {
   const [loaded, setLoaded] = useState(false)
 
-  // Initialize Lenis Extra Smooth Scrolling
+  // Initialize Lenis Extra Smooth Scrolling on desktop only (native touch on mobile)
   useEffect(() => {
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768)
+    if (isTouch) return
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
-      smoothTouch: false, // native touch for mobile feel
-      touchMultiplier: 2,
     })
 
     setLenis(lenis)
 
+    let rafId
     function raf(time) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    rafId = requestAnimationFrame(raf)
 
     return () => {
+      cancelAnimationFrame(rafId)
       lenis.destroy()
       setLenis(null)
     }

@@ -164,7 +164,7 @@ const Work = () => {
           </motion.p>
 
           {/* Interactive Category Filter Tabs with Framer Motion layoutId */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md">
+          <div className="mt-8 max-w-full overflow-x-auto no-scrollbar flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-2 p-1.5 rounded-2xl sm:rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md w-full sm:w-auto">
             {filterTabs.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
