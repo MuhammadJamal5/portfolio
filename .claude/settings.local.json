@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx skills *)",
+      "Skill(watch)",
+      "Skill(watch:*)",
+      "Bash(rm -rf \"/c/Users/mg328/.claude/skills/watch\" \"/c/Users/mg328/.agents/skills/watch\" 2>&1 *)",
+      "Bash(rm -f \"/c/Users/mg328/portfolio/\"v-*.png *)",
+      "WebSearch",
+      "WebFetch(domain:drei.docs.pmnd.rs)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5173 --max-time 5)",
+      "Bash(node /tmp/pw-shot/final.mjs)",
+      "mcp__magic__21st_magic_component_builder",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Bash(echo \"exit:$?\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\mg328\\.claude\\skills\\watch",
+      "C:\\Users\\mg328\\portfolio"
+    ]
+  }
+}

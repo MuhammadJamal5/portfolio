@@ -1,0 +1,14 @@
+# Large source assets not needed for the deployed site (videos are on YouTube)
+videos
+freepik_projects
+*.mp4
+*.mov
+
+# Build output (Vercel builds fresh) and local cruft
+dist
+node_modules
+
+# Working docs / briefs
+CLAUDE_CODE_PROMPT.md
+FREEPIK_PRODUCTION_BRIEF.md
+JamalCV.md
