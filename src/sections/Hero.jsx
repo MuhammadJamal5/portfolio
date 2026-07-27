@@ -21,7 +21,6 @@ const techLogos = [
   'MIDJOURNEY V6',
 ]
 
-/* Dream Motion: staggered orchestration variants */
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -31,7 +30,7 @@ const containerVariants = {
 }
 
 const itemUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -42,7 +41,6 @@ const itemUp = {
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const { scrollY } = useScroll()
-  /* Dream Motion parallax: push content up as user scrolls */
   const heroY = useTransform(scrollY, [0, 600], [0, -80])
   const heroOpacity = useTransform(scrollY, [0, 500], [1, 0.3])
 
@@ -54,9 +52,9 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-between pt-24 sm:pt-32 md:pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
+      className="relative min-h-[85vh] sm:min-h-screen flex flex-col justify-between pt-24 sm:pt-32 md:pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
     >
-      {/* Fusion AI ambient radial glow — pulsing */}
+      {/* Fusion AI ambient radial glow */}
       <motion.div
         animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.15, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
@@ -65,21 +63,21 @@ export default function Hero() {
         style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 12%, rgba(99,102,241,0.3) 0%, transparent 65%)' }}
       />
 
-      {/* Dream Motion parallax-wrapped content */}
+      {/* Main Content Box */}
       <motion.div
         style={{ y: heroY, opacity: heroOpacity }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center"
+        className="max-w-4xl mx-auto w-full relative z-10 flex flex-col items-center text-center px-2 sm:px-0"
       >
-        {/* Fusion AI pulsing badge — Loop style continuous float */}
+        {/* Pulsing Badge */}
         <motion.div
           variants={itemUp}
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          whileHover={{ scale: 1.07 }}
-          className="vizer-badge mb-7 cursor-default shadow-lg shadow-indigo-600/20"
+          whileHover={{ scale: 1.05 }}
+          className="vizer-badge mb-6 sm:mb-7 cursor-default shadow-lg shadow-indigo-600/20"
         >
           <motion.span
             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
@@ -89,40 +87,23 @@ export default function Hero() {
           <span>AI MOTION & VIDEO PRODUCTION</span>
         </motion.div>
 
-        {/* Dream Motion character-reveal headline */}
+        {/* Clean Centered Headline */}
         <motion.h1
           variants={itemUp}
-          className="text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12] max-w-3xl mb-5"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15] max-w-3xl mb-5 text-center"
         >
-          {'AI–Driven Video Production'.split(' ').map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block mr-[0.3em]"
-            >
-              {word}
-            </motion.span>
-          ))}
-          <br />
+          AI–Driven Video Production <br />
           <motion.span
-            initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400 font-bold bg-[length:200%_auto] inline-block mt-1"
           >
-            <motion.span
-              animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400 font-bold bg-[length:200%_auto]"
-            >
-              Redefining Storytelling.
-            </motion.span>
+            Redefining Storytelling.
           </motion.span>
         </motion.h1>
 
-        {/* Confezence spring-physics role badge */}
-        <motion.div variants={itemUp} className="mb-7 h-9 flex items-center justify-center">
+        {/* Animated Role Badge */}
+        <motion.div variants={itemUp} className="mb-6 sm:mb-7 h-9 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={roleIndex}
@@ -141,65 +122,63 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           variants={itemUp}
-          className="max-w-xl px-2 sm:px-0 text-sm sm:text-base text-slate-400 font-normal leading-relaxed mb-9"
+          className="max-w-xl text-xs sm:text-base text-slate-400 font-normal leading-relaxed mb-8 sm:mb-9 text-center px-2"
         >
           Psychology-driven storytelling meets cutting-edge AI production. <br className="hidden sm:inline" />
           Crafting high-converting brand films and viral social reels.
         </motion.p>
       </motion.div>
 
-      {/* Dome arch container — NO 3D element, pure Framer Motion + CSS */}
+      {/* Dome Arch Container — Perfectly Centered Mobile Buttons & Dome */}
       <motion.div
         initial={{ opacity: 0, y: 50, scale: 0.94 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-5xl mx-auto w-full pt-8 sm:pt-10 pb-6 rounded-t-[40px] sm:rounded-t-[100px] md:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between"
+        className="relative max-w-5xl mx-auto w-full pt-6 sm:pt-10 pb-6 rounded-t-[32px] sm:rounded-t-[100px] md:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between px-4 sm:px-6"
       >
-        {/* Animated glow dome */}
+        {/* Animated Glow Dome */}
         <div
-          className="absolute inset-0 rounded-t-[40px] sm:rounded-t-[100px] md:rounded-t-[180px] pointer-events-none animate-dome-glow"
+          className="absolute inset-0 rounded-t-[32px] sm:rounded-t-[100px] md:rounded-t-[180px] pointer-events-none animate-dome-glow"
           style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.4) 0%, rgba(139,92,246,0.18) 50%, transparent 80%)' }}
         />
 
-        {/* Confezence spring-bounce buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 relative z-10">
+        {/* Action Buttons — Identical matching widths when stacked on mobile */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 relative z-10 w-full max-w-[300px] sm:max-w-none">
           <motion.a
-            whileHover={{ scale: 1.07, y: -3 }}
-            whileTap={{ scale: 0.93 }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             href="#contact"
             onClick={e => navClick(e, '#contact')}
-            className="px-5 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-[11px] sm:text-sm hover:bg-slate-50 transition-colors shadow-xl shadow-white/10 flex items-center gap-1.5 group"
+            className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors shadow-xl shadow-white/10 flex items-center justify-center gap-1.5 group text-center"
           >
             <span>Get In Touch</span>
             <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </motion.a>
 
           <motion.a
-            whileHover={{ scale: 1.07, y: -3 }}
-            whileTap={{ scale: 0.93 }}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             href="#about"
             onClick={e => navClick(e, '#about')}
-            className="px-5 py-3 sm:px-8 sm:py-4 rounded-full bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold text-[11px] sm:text-sm hover:bg-indigo-600/60 transition-colors backdrop-blur-md shadow-lg shadow-indigo-600/25"
+            className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-4 rounded-full bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold text-xs sm:text-sm hover:bg-indigo-600/60 transition-colors backdrop-blur-md shadow-lg shadow-indigo-600/25 flex items-center justify-center text-center"
           >
             <span>About My Craft</span>
           </motion.a>
         </div>
 
-        {/* Loop template infinite marquee */}
+        {/* Infinite Tool Marquee */}
         <div className="relative z-10 w-full overflow-hidden py-2 border-t border-white/10">
           <div className="animate-marquee">
             {[...techLogos, ...techLogos, ...techLogos].map((tool, i) => (
-              <motion.div
+              <div
                 key={i}
-                whileHover={{ scale: 1.12 }}
-                transition={{ type: 'spring', stiffness: 400 }}
-                className="flex items-center gap-3 px-3 sm:px-6 whitespace-nowrap cursor-default"
+                className="flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 whitespace-nowrap cursor-default"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-                <span className="text-xs font-bold tracking-widest text-slate-300 uppercase hover:text-white transition-colors">{tool}</span>
-              </motion.div>
+                <span className="text-[11px] sm:text-xs font-bold tracking-widest text-slate-300 uppercase hover:text-white transition-colors">{tool}</span>
+              </div>
             ))}
           </div>
         </div>

@@ -50,12 +50,9 @@ const AnimatedCounter = ({ target, duration = 1500, prefix = "", suffix = "", de
 };
 
 const Metrics = () => {
-  const headerText = "Measurable Impact. Real Results.";
-  const headerWords = headerText.split(" ");
-
   const metricsData = [
     {
-      icon: <Eye className="w-6 h-6 text-indigo-400" />,
+      icon: <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />,
       target: 10,
       prefix: "",
       suffix: "M+",
@@ -64,7 +61,7 @@ const Metrics = () => {
       desc: "Across YouTube, TikTok, Reels, and commercial campaign distribution."
     },
     {
-      icon: <TrendingUp className="w-6 h-6 text-indigo-400" />,
+      icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />,
       target: 3.2,
       prefix: "",
       suffix: "x",
@@ -73,7 +70,7 @@ const Metrics = () => {
       desc: "Psychology-backed visual hooks engineered to stop scroll inertia."
     },
     {
-      icon: <Award className="w-6 h-6 text-indigo-400" />,
+      icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />,
       target: 85,
       prefix: "",
       suffix: "%",
@@ -82,7 +79,7 @@ const Metrics = () => {
       desc: "Pacing, sound design, and motion graphics keeping viewers hooked."
     },
     {
-      icon: <Zap className="w-6 h-6 text-indigo-400" />,
+      icon: <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />,
       target: 48,
       prefix: "24–",
       suffix: "h",
@@ -91,38 +88,6 @@ const Metrics = () => {
       desc: "Streamlined AI generative pipeline + precision post-production."
     }
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20
-      }
-    }
-  };
-
-  const wordVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: { ease: [0.16, 1, 0.3, 1], duration: 0.6 }
-    }
-  };
 
   const marqueeText = [
     "Trusted by brands worldwide",
@@ -134,60 +99,53 @@ const Metrics = () => {
 
   return (
     <section id="metrics" className="relative py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] overflow-hidden">
-      {/* Fusion AI ambient background */}
+      {/* Ambient background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.08)_0%,_transparent_70%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Dream Motion Header */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+        {/* Centered Header */}
+        <div className="text-center flex flex-col items-center mb-10 sm:mb-14 md:mb-16">
           <motion.div
-            className="inline-block vizer-badge px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block vizer-badge mb-4 sm:mb-6"
           >
             Metrics & Impact
           </motion.div>
           
           <motion.h2 
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white font-['Montserrat'] flex flex-wrap justify-center gap-x-3 gap-y-2"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white font-['Montserrat'] text-center max-w-3xl leading-tight"
           >
-            {headerWords.map((word, i) => (
-              <motion.span key={i} variants={wordVariants}>
-                {word}
-              </motion.span>
-            ))}
+            Measurable Impact. Real Results.
           </motion.h2>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
-        >
+        {/* Cards — Centered on Mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {metricsData.map((metric, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="vizer-card relative p-5 sm:p-6 md:p-8 rounded-[20px] bg-[#0c0c14] border border-white/5 overflow-hidden group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="vizer-card relative p-6 sm:p-7 md:p-8 rounded-2xl bg-[#0c0c14] border border-white/5 overflow-hidden group flex flex-col items-center text-center"
             >
-              {/* Fusion AI Glow behind number */}
+              {/* Glow behind number */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-indigo-500/20 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-5">
                 {metric.icon}
               </div>
               
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-['Montserrat'] mb-4 tracking-tight">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white font-['Montserrat'] mb-2 tracking-tight">
                 <AnimatedCounter 
                   target={metric.target}
                   prefix={metric.prefix}
@@ -196,23 +154,23 @@ const Metrics = () => {
                 />
               </h3>
               
-              <h4 className="text-lg font-semibold text-white/90 mb-2 font-['Montserrat']">
+              <h4 className="text-sm sm:text-base font-semibold text-white/90 mb-2 font-['Montserrat']">
                 {metric.title}
               </h4>
-              <p className="text-sm text-[#94a3b8] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#94a3b8] leading-relaxed">
                 {metric.desc}
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Loop Marquee */}
-        <div className="mt-24 pt-12 border-t border-white/5 relative flex overflow-hidden">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#06060a] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#06060a] to-transparent z-10" />
+        <div className="mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-white/5 relative flex overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#06060a] to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#06060a] to-transparent z-10" />
           
           <motion.div
-            className="flex gap-6 sm:gap-8 md:gap-12 items-center whitespace-nowrap"
+            className="flex gap-6 sm:gap-12 items-center whitespace-nowrap"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
               repeat: Infinity,
@@ -221,7 +179,7 @@ const Metrics = () => {
             }}
           >
             {[...marqueeText, ...marqueeText].map((text, i) => (
-              <div key={i} className="flex items-center gap-6 sm:gap-8 md:gap-12 text-[#94a3b8]/60 font-['Montserrat'] uppercase tracking-widest text-xs md:text-sm">
+              <div key={i} className="flex items-center gap-6 sm:gap-12 text-[#94a3b8]/60 font-['Montserrat'] uppercase tracking-widest text-[10px] sm:text-xs md:text-sm">
                 <span>{text}</span>
                 {i !== marqueeText.length * 2 - 1 && (
                   <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/40" />

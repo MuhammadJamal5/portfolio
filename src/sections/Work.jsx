@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Sparkles } from 'lucide-react';
+import { Play } from 'lucide-react';
 import VideoLightbox from '../components/VideoLightbox';
 import { featured, shorts, thumbUrl } from '../data/videos';
 
@@ -11,27 +11,6 @@ const filterTabs = [
   { id: 'saas', label: 'SaaS & Tech' },
   { id: 'social', label: 'Social Reels' },
 ];
-
-const headerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const wordVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 24,
-    },
-  },
-};
 
 const marqueeCategories = [
   'Commercials',
@@ -44,34 +23,34 @@ const marqueeCategories = [
   'Color Grading',
 ];
 
-const VideoCard = ({ video, onOpen, isShort, index }) => {
+const VideoCard = ({ video, onOpen, isShort }) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className={`vizer-card relative overflow-hidden cursor-pointer group rounded-[20px] bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)] transition-all duration-500 ${
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      className={`vizer-card relative overflow-hidden cursor-pointer group rounded-2xl bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)] transition-all duration-300 ${
         isShort ? 'aspect-[9/16]' : 'aspect-video'
       }`}
       onClick={() => onOpen(video)}
     >
-      <div className="absolute inset-0 overflow-hidden rounded-[20px]">
+      <div className="absolute inset-0 overflow-hidden rounded-2xl">
         <motion.img
           src={thumbUrl(video.id)}
           alt={video.title}
           className="w-full h-full object-cover"
           whileHover={{ scale: 1.06 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 flex flex-col justify-between p-3 sm:p-5 md:p-6 z-10 pointer-events-none">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 flex flex-col justify-between p-3.5 sm:p-5 md:p-6 z-10 pointer-events-none">
         <div className="flex justify-end">
           {video.category && (
-            <span className="backdrop-blur-md bg-white/10 border border-white/20 text-white text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider">
+            <span className="backdrop-blur-md bg-white/10 border border-white/20 text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider">
               {video.category}
             </span>
           )}
@@ -79,21 +58,21 @@ const VideoCard = ({ video, onOpen, isShort, index }) => {
 
         <div className="flex flex-col items-center justify-center absolute inset-0">
           <motion.div
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.12 }}
+            whileTap={{ scale: 0.92 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-indigo-500/80 backdrop-blur-md flex items-center justify-center text-white shadow-lg pointer-events-auto"
           >
-            <Play className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 ml-1" fill="currentColor" />
+            <Play className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 ml-0.5" fill="currentColor" />
           </motion.div>
         </div>
 
-        <div className="z-20">
-          <h3 className="text-white text-sm sm:text-lg md:text-xl font-bold leading-tight font-montserrat">
+        <div className="z-20 text-left">
+          <h3 className="text-white text-xs sm:text-lg md:text-xl font-bold leading-tight font-montserrat">
             {video.title}
           </h3>
           {video.client && (
-            <p className="text-[#94a3b8] text-sm mt-1 font-montserrat">{video.client}</p>
+            <p className="text-[#94a3b8] text-[11px] sm:text-sm mt-0.5 font-montserrat">{video.client}</p>
           )}
         </div>
       </div>
@@ -105,9 +84,6 @@ const Work = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [activeTab, setActiveTab] = useState('all');
 
-  const headerText = 'Cinematic Experiences & Visual Stories'.split(' ');
-
-  // Filter helper logic
   const matchesFilter = (video) => {
     if (activeTab === 'all') return true;
     const cat = (video.category || '').toLowerCase();
@@ -128,68 +104,67 @@ const Work = () => {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-400/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header Section — 100% Centered */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="vizer-badge mb-6"
+            className="vizer-badge mb-4 sm:mb-6"
           >
             Selected Works
           </motion.div>
 
           <motion.h2
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 flex flex-wrap justify-center gap-x-3 gap-y-2"
-            variants={headerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 text-center leading-tight max-w-4xl"
           >
-            {headerText.map((word, i) => (
-              <motion.span key={i} variants={wordVariants}>
-                {word}
-              </motion.span>
-            ))}
+            Cinematic Experiences & Visual Stories
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-[#94a3b8] text-sm sm:text-base md:text-lg max-w-2xl"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-[#94a3b8] text-xs sm:text-base md:text-lg max-w-2xl text-center px-2"
           >
             From high-converting SaaS demos to viral brand reels and AI motion experiments.
           </motion.p>
 
-          {/* Interactive Category Filter Tabs with Framer Motion layoutId */}
-          <div className="mt-8 max-w-full overflow-x-auto no-scrollbar flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-2 p-1.5 rounded-2xl sm:rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md w-full sm:w-auto">
-            {filterTabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`relative px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-colors duration-300 ${
-                    isActive ? 'text-white' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeFilterTab"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg shadow-indigo-600/30"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{tab.label}</span>
-                </button>
-              );
-            })}
+          {/* Centered Horizontal Filter Bar */}
+          <div className="mt-6 sm:mt-8 w-full flex justify-center">
+            <div className="max-w-full overflow-x-auto no-scrollbar flex flex-nowrap sm:flex-wrap items-center justify-start sm:justify-center gap-1.5 sm:gap-2 p-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md">
+              {filterTabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`relative px-3.5 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-full whitespace-nowrap transition-colors duration-300 ${
+                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeFilterTab"
+                        className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg shadow-indigo-600/30"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Featured 16:9 Videos */}
+        {/* Featured 16:9 Videos Grid */}
         <AnimatePresence mode="popLayout">
           {filteredFeatured.length > 0 && (
             <motion.div
@@ -200,7 +175,6 @@ const Work = () => {
                 <VideoCard
                   key={video.id}
                   video={video}
-                  index={index}
                   onOpen={setSelectedVideo}
                   isShort={false}
                 />
@@ -211,7 +185,7 @@ const Work = () => {
       </div>
 
       {/* Infinite Marquee */}
-      <div className="w-full overflow-hidden bg-indigo-900/10 border-y border-white/5 py-8 mb-12 sm:mb-16 md:mb-20">
+      <div className="w-full overflow-hidden bg-indigo-900/10 border-y border-white/5 py-6 sm:py-8 mb-12 sm:mb-16 md:mb-20">
         <motion.div
           className="flex whitespace-nowrap"
           animate={{ x: ['0%', '-50%'] }}
@@ -224,7 +198,7 @@ const Work = () => {
           {[...marqueeCategories, ...marqueeCategories, ...marqueeCategories].map((cat, i) => (
             <span
               key={i}
-              className="text-white/40 text-sm sm:text-lg md:text-xl font-bold uppercase tracking-widest px-8"
+              className="text-white/40 text-xs sm:text-lg md:text-xl font-bold uppercase tracking-widest px-6 sm:px-8"
             >
               {cat} •
             </span>
@@ -236,23 +210,22 @@ const Work = () => {
         <AnimatePresence mode="popLayout">
           {filteredShorts.length > 0 && (
             <motion.div layout>
-              <div className="mb-10 flex items-center justify-between">
+              <div className="mb-8 sm:mb-10 flex flex-row items-center justify-between gap-2">
                 <div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Social Shorts & Reels</h3>
-                  <p className="text-[#94a3b8] mt-1 text-xs sm:text-sm">High-impact vertical content engineered for retention.</p>
+                  <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white text-left">Social Shorts & Reels</h3>
+                  <p className="text-[#94a3b8] mt-1 text-[11px] sm:text-sm text-left">High-impact vertical content engineered for retention.</p>
                 </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                <span className="text-[10px] sm:text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 whitespace-nowrap">
                   {filteredShorts.length} Videos
                 </span>
               </div>
               
               {/* Shorts Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 lg:gap-4">
-                {filteredShorts.map((video, index) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                {filteredShorts.map((video) => (
                   <VideoCard
                     key={video.id}
                     video={video}
-                    index={index}
                     onOpen={setSelectedVideo}
                     isShort={true}
                   />
