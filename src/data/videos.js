@@ -3,9 +3,9 @@
 export const featured = [
   {
     id: 'LS0lPuzL5h4',
-    title: 'Awqaf — Brand Film',
-    category: 'Brand Film',
-    blurb: 'Full-length brand film for Awqaf — narrative edit, color grade, and sound design.',
+    title: 'SaaS & Tech Product Demo',
+    category: 'SaaS & Tech',
+    blurb: 'High-converting SaaS product demo video showcasing UI motion, slick pacing, and feature highlights.',
     orientation: 'landscape',
   },
   {
