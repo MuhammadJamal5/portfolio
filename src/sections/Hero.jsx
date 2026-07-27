@@ -129,11 +129,11 @@ export default function Hero() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#work"
-            onClick={e => navClick(e, '#work')}
+            href="#contact"
+            onClick={e => navClick(e, '#contact')}
             className="px-7 py-3.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-zinc-100 transition-all shadow-xl shadow-white/10 flex items-center gap-1.5 group"
           >
-            <span>Connect With Us</span>
+            <span>Get In Touch</span>
             <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </motion.a>
 
@@ -144,7 +144,7 @@ export default function Hero() {
             onClick={e => navClick(e, '#about')}
             className="px-7 py-3.5 rounded-full bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold text-xs sm:text-sm hover:bg-indigo-600/60 transition-all backdrop-blur-md shadow-lg shadow-indigo-600/25"
           >
-            <span>What is Studio?</span>
+            <span>About My Craft</span>
           </motion.a>
         </div>
 

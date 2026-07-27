@@ -44,7 +44,7 @@ export default function Contact() {
             href={`mailto:${email}`}
             className="px-7 py-3.5 rounded-full bg-indigo-600 text-white font-semibold text-xs sm:text-sm hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-600/30"
           >
-            Connect With Us
+            Get In Touch
           </motion.a>
 
           <motion.button

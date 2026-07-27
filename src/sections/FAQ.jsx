@@ -9,11 +9,11 @@ const faqs = [
   },
   {
     q: 'How do you integrate Generative AI into traditional video editing?',
-    a: 'We leverage AI tools (ComfyUI, Runway Gen-3, ElevenLabs) for B-roll generation, character consistency, voice synthesis, and lip-syncing — then refine and edit everything with precision in Premiere Pro and After Effects for a seamless broadcast finish.',
+    a: 'I leverage AI tools (ComfyUI, Runway Gen-3, ElevenLabs) for B-roll generation, character consistency, voice synthesis, and lip-syncing — then refine and edit everything with precision in Premiere Pro and After Effects for a seamless broadcast finish.',
   },
   {
     q: 'Do you offer multi-language lip-sync dubbing for campaigns?',
-    a: 'Yes. Using HeyGen and ElevenLabs voice-face alignment, we produce natural Arabic and English video dubs where lip movements dynamically match the spoken audio.',
+    a: 'Yes. Using HeyGen and ElevenLabs voice-face alignment, I produce natural Arabic and English video dubs where lip movements dynamically match the spoken audio.',
   },
   {
     q: 'What formats and resolution deliverables do I receive?',
@@ -42,7 +42,7 @@ export default function FAQ() {
             Frequently Asked Questions.
           </h2>
           <p className="text-zinc-400 text-sm max-w-lg mx-auto font-normal">
-            Everything you need to know about our video editing and AI production workflow.
+            Everything you need to know about my video editing and AI production workflow.
           </p>
         </motion.div>
 
