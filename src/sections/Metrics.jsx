@@ -30,21 +30,22 @@ const metrics = [
 
 export default function Metrics() {
   return (
-    <section className="py-20 px-6 bg-[#000000] relative text-center">
+    <section className="py-20 px-6 bg-[#06060a] relative text-center">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-14"
         >
-          <span className="inline-block px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-emerald-400 font-semibold mb-3">
-            Impact & Performance
-          </span>
+          <div className="vizer-badge mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+            <span>IMPACT & PERFORMANCE</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight mb-3">
             Measured Results for Brands & Creators.
           </h2>
-          <p className="text-zinc-400 text-sm max-w-lg mx-auto font-normal">
+          <p className="text-slate-400 text-sm max-w-lg mx-auto font-normal">
             Combining creative AI motion art with data-driven retention science.
           </p>
         </motion.div>
@@ -56,19 +57,19 @@ export default function Metrics() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ y: -6 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="nubien-card p-6 flex flex-col items-center text-center group cursor-default"
+              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="vizer-card p-6 flex flex-col items-center text-center group cursor-default"
             >
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                 <Icon size={20} />
               </div>
               <span className="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-tight">
                 {value}
               </span>
-              <h3 className="text-sm font-semibold text-zinc-200 mb-2">
+              <h3 className="text-sm font-semibold text-slate-200 mb-2">
                 {label}
               </h3>
-              <p className="text-zinc-400 text-xs leading-relaxed font-normal">
+              <p className="text-slate-400 text-xs leading-relaxed font-normal">
                 {desc}
               </p>
             </motion.div>

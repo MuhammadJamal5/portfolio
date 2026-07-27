@@ -13,8 +13,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 bg-[#000000] relative text-center overflow-hidden">
-      {/* Animated Glowing Dome Background in Footer */}
+    <section id="contact" className="py-24 px-6 bg-[#06060a] relative text-center overflow-hidden">
+      {/* Fusion AI Animated Glowing Dome Background in Footer */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-[260px] rounded-t-[100%] pointer-events-none animate-dome-glow"
         style={{
@@ -26,14 +26,15 @@ export default function Contact() {
       />
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <span className="inline-block px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-indigo-400 font-semibold mb-4">
-          Get In Touch
-        </span>
+        <div className="vizer-badge mb-4">
+          <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+          <span>GET IN TOUCH</span>
+        </div>
         <h2 className="text-3xl sm:text-5xl font-semibold text-white tracking-tight leading-tight mb-4">
           Ready to Elevate Your <br />
           <span className="text-white font-semibold">Visual Content?</span>
         </h2>
-        <p className="text-zinc-400 text-sm sm:text-base max-w-lg mx-auto mb-8 font-normal">
+        <p className="text-slate-400 text-sm sm:text-base max-w-lg mx-auto mb-8 font-normal">
           Have an upcoming brand film, SaaS product demo, or AI video campaign? Let's connect and build something extraordinary.
         </p>
 
@@ -57,7 +58,7 @@ export default function Contact() {
           </motion.button>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Muhammed Jamal. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a
