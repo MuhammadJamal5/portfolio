@@ -131,100 +131,67 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center overflow-hidden hero-bg"
+      className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#07070a]"
     >
-      {/* Floating glass "clip" frames — video-editor 3D focal element */}
-      <SceneCanvas
-        className="absolute pointer-events-none select-none hidden lg:block opacity-40 lg:opacity-100 transition-opacity"
+      {/* Background ambient lighting — subtle, non-intrusive */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
         style={{
-          right: '-2%', top: '48%', transform: 'translateY(-50%)',
-          width: 'clamp(320px, 44vw, 760px)',
-          height: 'clamp(380px, 70vh, 800px)',
-          zIndex: 5,
+          background:
+            'radial-gradient(circle 800px at 50% -20%, rgba(99,102,241,0.15), transparent 70%), radial-gradient(circle 600px at 85% 60%, rgba(168,85,247,0.08), transparent 60%)',
         }}
-        cameraZ={5.5}
-        glow="rgba(139,92,246,0.2)"
-      >
-        <FloatingFrames />
-      </SceneCanvas>
-
-      <motion.div style={{ scale: bgScale }} className="absolute inset-0 pointer-events-none" aria-hidden />
-
-      {/* Cursor spotlight — direct DOM update in onMove, no React re-render */}
-      <div ref={spotlightRef} className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }} />
-
-      {/* Particles above overlay */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
-        <Particles />
-      </div>
-
-      {/* Ambient glows — parallax layers that follow the mouse */}
-      <motion.div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ x: glow1X, y: glow1Y, background: 'radial-gradient(ellipse 110% 70% at 50% -8%, rgba(30,58,138,0.55) 0%, transparent 58%)', zIndex: 4 }} />
-      <motion.div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ x: glow2X, y: glow2Y, background: 'radial-gradient(ellipse 65% 50% at 8% 55%, rgba(67,56,202,0.22) 0%, transparent 62%)', zIndex: 4 }} />
-      <motion.div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ x: glow3X, y: glow3Y, background: 'radial-gradient(ellipse 48% 40% at 92% 65%, rgba(157,23,77,0.15) 0%, transparent 55%)', zIndex: 4 }} />
+      />
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 w-full"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 md:pb-24 w-full"
       >
-        {/* Eyebrow */}
+        {/* Eyebrow badge */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6 md:mb-8"
-        >
-          <motion.span
-            animate={{ scale: [1, 1.4, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-2 h-2 rounded-full"
-            style={{ background: '#818cf8' }}
-          />
-          <span className="label text-[10px] sm:text-xs">Available for projects — Cairo, Egypt</span>
-        </motion.div>
-
-        {/* Name */}
-        <motion.div
-          className="mb-4 sm:mb-6 md:mb-8"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full mb-6 sm:mb-8"
           style={{
-            fontFamily: 'Montserrat, system-ui, sans-serif',
-            fontWeight: 900,
-            rotateX: nameTiltX,
-            rotateY: nameTiltY,
-            transformPerspective: 1400,
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.08)',
           }}
         >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs font-semibold text-slate-300 tracking-wide">
+            Available for Select Projects & Agency Roles — Cairo, Egypt
+          </span>
+        </motion.div>
+
+        {/* Headline / Name */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4 sm:mb-6"
+        >
           <h1
-            className="text-[clamp(34px,8vw,120px)] sm:text-[clamp(48px,8.5vw,135px)] md:text-[clamp(64px,9vw,145px)] text-white tracking-[-0.03em] leading-[0.95]"
-            style={{ fontFamily: 'inherit', fontWeight: 'inherit' }}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[0.98]"
+            style={{ fontFamily: 'Montserrat, Syne, sans-serif' }}
           >
-            <SplitName text="Muhammed" wordIndex={0} charDelay={0.038} />
-            <SplitName text="Jamal" wordIndex={1} charDelay={0.045} />
+            Muhammed Jamal
           </h1>
         </motion.div>
 
-        {/* Role cycler */}
-        <div className="mb-6 sm:mb-8 md:mb-10 h-10 sm:h-12 flex items-center">
+        {/* Dynamic Role */}
+        <div className="mb-6 sm:mb-8 h-10 sm:h-12 flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={roleIndex}
-              initial={{ opacity: 0, y: 18, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, y: 0,  filter: 'blur(0px)' }}
-              exit   ={{ opacity: 0, y: -18, filter: 'blur(10px)' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-2.5 sm:gap-3"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35 }}
+              className="flex items-center gap-3"
             >
-              <div
-                className="shrink-0 w-1 h-6 sm:h-8 rounded-full"
-                style={{ background: 'linear-gradient(to bottom, #60a5fa, #818cf8, #c084fc)' }}
-              />
-              <span
-                className="text-xl sm:text-2xl md:text-3xl font-bold text-white"
-                style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.01em' }}
-              >
+              <div className="w-1 h-7 rounded-full bg-indigo-500" />
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-indigo-200">
                 {roles[roleIndex]}
               </span>
             </motion.div>

@@ -4,12 +4,10 @@ import { Menu, X, ArrowUp } from 'lucide-react'
 import { smoothTo, navClick } from '../utils/smoothScroll'
 
 const links = [
-  { href: '#work',       label: 'Work' },
-  { href: '#about',      label: 'About' },
-  { href: '#skills',     label: 'Skills' },
-  { href: '#services',   label: 'Services' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact',    label: 'Contact' },
+  { href: '#work',     label: 'Work' },
+  { href: '#about',    label: 'About & Tech' },
+  { href: '#pipeline', label: 'Workflow' },
+  { href: '#contact',  label: 'Contact' },
 ]
 
 export default function Nav() {
