@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Play, Sparkles } from 'lucide-react';
 import VideoLightbox from '../components/VideoLightbox';
 import { featured, shorts, thumbUrl } from '../data/videos';
+
+const filterTabs = [
+  { id: 'all', label: 'All Works' },
+  { id: 'commercials', label: 'Commercials & Ads' },
+  { id: 'ai', label: 'AI & Motion' },
+  { id: 'saas', label: 'SaaS & Tech' },
+  { id: 'social', label: 'Social Reels' },
+];
 
 const headerVariants = {
   hidden: { opacity: 0 },
@@ -25,21 +33,7 @@ const wordVariants = {
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.08,
-      type: 'spring',
-      stiffness: 300,
-      damping: 24,
-    },
-  }),
-};
-
-const categories = [
+const marqueeCategories = [
   'Commercials',
   'Music Videos',
   'Documentaries',
@@ -53,11 +47,11 @@ const categories = [
 const VideoCard = ({ video, onOpen, isShort, index }) => {
   return (
     <motion.div
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
-      variants={cardVariants}
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -8, scale: 1.02 }}
       className={`vizer-card relative overflow-hidden cursor-pointer group rounded-[20px] bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)] transition-all duration-500 ${
         isShort ? 'aspect-[9/16]' : 'aspect-video'
@@ -109,8 +103,23 @@ const VideoCard = ({ video, onOpen, isShort, index }) => {
 
 const Work = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [activeTab, setActiveTab] = useState('all');
 
   const headerText = 'Cinematic Experiences & Visual Stories'.split(' ');
+
+  // Filter helper logic
+  const matchesFilter = (video) => {
+    if (activeTab === 'all') return true;
+    const cat = (video.category || '').toLowerCase();
+    if (activeTab === 'commercials') return cat.includes('commercial') || cat.includes('ad');
+    if (activeTab === 'ai') return cat.includes('ai') || cat.includes('vfx') || cat.includes('concept');
+    if (activeTab === 'saas') return cat.includes('saas') || cat.includes('tech') || cat.includes('app');
+    if (activeTab === 'social') return cat.includes('social') || cat.includes('finance');
+    return true;
+  };
+
+  const filteredFeatured = featured.filter(matchesFilter);
+  const filteredShorts = shorts.filter(matchesFilter);
 
   return (
     <section id="work" className="py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] relative overflow-hidden font-montserrat">
@@ -119,7 +128,7 @@ const Work = () => {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-400/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col items-center text-center mb-12 sm:mb-16 md:mb-20">
+        <div className="flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -151,22 +160,54 @@ const Work = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-[#94a3b8] text-sm sm:text-base md:text-lg max-w-2xl"
           >
-            From sweeping landscapes to high-octane action, we bring visions to life through dynamic motion and compelling narratives.
+            From high-converting SaaS demos to viral brand reels and AI motion experiments.
           </motion.p>
+
+          {/* Interactive Category Filter Tabs with Framer Motion layoutId */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md">
+            {filterTabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-colors duration-300 ${
+                    isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeFilterTab"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg shadow-indigo-600/30"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Featured Videos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12 sm:mb-16 md:mb-20">
-          {featured.map((video, index) => (
-            <VideoCard
-              key={video.id}
-              video={video}
-              index={index}
-              onOpen={setSelectedVideo}
-              isShort={false}
-            />
-          ))}
-        </div>
+        {/* Featured 16:9 Videos */}
+        <AnimatePresence mode="popLayout">
+          {filteredFeatured.length > 0 && (
+            <motion.div
+              layout
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12 sm:mb-16 md:mb-20"
+            >
+              {filteredFeatured.map((video, index) => (
+                <VideoCard
+                  key={video.id}
+                  video={video}
+                  index={index}
+                  onOpen={setSelectedVideo}
+                  isShort={false}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Infinite Marquee */}
@@ -180,7 +221,7 @@ const Work = () => {
             duration: 20,
           }}
         >
-          {[...categories, ...categories, ...categories].map((cat, i) => (
+          {[...marqueeCategories, ...marqueeCategories, ...marqueeCategories].map((cat, i) => (
             <span
               key={i}
               className="text-white/40 text-sm sm:text-lg md:text-xl font-bold uppercase tracking-widest px-8"
@@ -192,23 +233,34 @@ const Work = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-10">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Social Shorts</h3>
-          <p className="text-[#94a3b8] mt-2">High-impact vertical content engineered for engagement.</p>
-        </div>
-        
-        {/* Shorts Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 lg:gap-4">
-          {shorts.map((video, index) => (
-            <VideoCard
-              key={video.id}
-              video={video}
-              index={index}
-              onOpen={setSelectedVideo}
-              isShort={true}
-            />
-          ))}
-        </div>
+        <AnimatePresence mode="popLayout">
+          {filteredShorts.length > 0 && (
+            <motion.div layout>
+              <div className="mb-10 flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Social Shorts & Reels</h3>
+                  <p className="text-[#94a3b8] mt-1 text-xs sm:text-sm">High-impact vertical content engineered for retention.</p>
+                </div>
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                  {filteredShorts.length} Videos
+                </span>
+              </div>
+              
+              {/* Shorts Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 lg:gap-4">
+                {filteredShorts.map((video, index) => (
+                  <VideoCard
+                    key={video.id}
+                    video={video}
+                    index={index}
+                    onOpen={setSelectedVideo}
+                    isShort={true}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <VideoLightbox
