@@ -133,7 +133,7 @@ const Metrics = () => {
   ];
 
   return (
-    <section className="relative py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] overflow-hidden">
+    <section id="metrics" className="relative py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] overflow-hidden">
       {/* Fusion AI ambient background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.08)_0%,_transparent_70%)] pointer-events-none" />
 

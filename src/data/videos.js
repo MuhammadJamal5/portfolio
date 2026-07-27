@@ -49,12 +49,6 @@ export const shorts = [
     orientation: 'short',
   },
   {
-    id: 'SdEKVNDbyh4',
-    title: 'Awqaf — Social Cut',
-    category: 'Social',
-    orientation: 'short',
-  },
-  {
     id: 'o1yWqTGhEPw',
     title: 'Social Media Reel',
     category: 'Social',
