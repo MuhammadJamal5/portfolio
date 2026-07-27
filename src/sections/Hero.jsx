@@ -18,7 +18,7 @@ const stats = [
 
 function SplitName({ text, wordIndex, charDelay = 0.035 }) {
   return (
-    <div style={{ overflow: 'hidden', paddingBottom: '0.12em', lineHeight: 1.08, perspective: '600px' }}>
+    <div style={{ overflow: 'hidden', paddingBottom: '0.04em', lineHeight: 1.0, perspective: '600px' }}>
       {text.split('').map((char, ci) => (
         <motion.span
           key={ci}
@@ -131,15 +131,15 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-bg"
+      className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center overflow-hidden hero-bg"
     >
       {/* Floating glass "clip" frames — video-editor 3D focal element */}
       <SceneCanvas
-        className="absolute pointer-events-none select-none"
+        className="absolute pointer-events-none select-none hidden lg:block opacity-40 lg:opacity-100 transition-opacity"
         style={{
-          right: '-4%', top: '50%', transform: 'translateY(-50%)',
-          width: 'clamp(360px, 52vw, 820px)',
-          height: 'clamp(420px, 78vh, 860px)',
+          right: '-2%', top: '48%', transform: 'translateY(-50%)',
+          width: 'clamp(320px, 44vw, 760px)',
+          height: 'clamp(380px, 70vh, 800px)',
           zIndex: 5,
         }}
         cameraZ={5.5}
@@ -168,14 +168,14 @@ export default function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24 w-full"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 w-full"
       >
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-3 mb-10"
+          className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6 md:mb-8"
         >
           <motion.span
             animate={{ scale: [1, 1.4, 1] }}
@@ -183,12 +183,12 @@ export default function Hero() {
             className="w-2 h-2 rounded-full"
             style={{ background: '#818cf8' }}
           />
-          <span className="label">Available for projects — Cairo, Egypt</span>
+          <span className="label text-[10px] sm:text-xs">Available for projects — Cairo, Egypt</span>
         </motion.div>
 
         {/* Name */}
         <motion.div
-          className="mb-8"
+          className="mb-4 sm:mb-6 md:mb-8"
           style={{
             fontFamily: 'Montserrat, system-ui, sans-serif',
             fontWeight: 900,
@@ -198,7 +198,7 @@ export default function Hero() {
           }}
         >
           <h1
-            className="text-[clamp(58px,10.5vw,148px)] text-white tracking-[-0.03em] leading-none"
+            className="text-[clamp(34px,8vw,120px)] sm:text-[clamp(48px,8.5vw,135px)] md:text-[clamp(64px,9vw,145px)] text-white tracking-[-0.03em] leading-[0.95]"
             style={{ fontFamily: 'inherit', fontWeight: 'inherit' }}
           >
             <SplitName text="Muhammed" wordIndex={0} charDelay={0.038} />
@@ -207,7 +207,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Role cycler */}
-        <div className="mb-12 h-12 flex items-center">
+        <div className="mb-6 sm:mb-8 md:mb-10 h-10 sm:h-12 flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={roleIndex}
@@ -215,14 +215,14 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0,  filter: 'blur(0px)' }}
               exit   ={{ opacity: 0, y: -18, filter: 'blur(10px)' }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-3"
+              className="flex items-center gap-2.5 sm:gap-3"
             >
               <div
-                className="shrink-0 w-1 h-8 rounded-full"
+                className="shrink-0 w-1 h-6 sm:h-8 rounded-full"
                 style={{ background: 'linear-gradient(to bottom, #60a5fa, #818cf8, #c084fc)' }}
               />
               <span
-                className="text-2xl md:text-3xl font-bold text-white"
+                className="text-xl sm:text-2xl md:text-3xl font-bold text-white"
                 style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.01em' }}
               >
                 {roles[roleIndex]}
@@ -236,7 +236,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="text-lg max-w-xl leading-relaxed mb-14"
+          className="text-base sm:text-lg max-w-xl leading-relaxed mb-8 sm:mb-10 md:mb-12"
           style={{ color: 'rgba(148,163,184,0.85)' }}
         >
           Psychology-driven storytelling meets cutting-edge AI production.{' '}
@@ -251,13 +251,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-center gap-4 mb-24"
+          className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-12 sm:mb-16 md:mb-20"
         >
           <PremiumButton
             as="a"
             href="#work"
             onClick={e => navClick(e, '#work')}
-            className="px-8 py-4 text-sm"
+            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
             icon={
               <motion.span
                 animate={{ y: [0, 4, 0] }}
@@ -275,7 +275,7 @@ export default function Hero() {
             as="a"
             variant="ghost"
             href="mailto:mg32871@gmail.com"
-            className="px-8 py-4 text-sm"
+            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
           >
             <Mail size={15} /> Let's Talk
           </PremiumButton>
@@ -286,7 +286,7 @@ export default function Hero() {
             href="https://www.linkedin.com/in/muhammedjamalvfx/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 text-sm"
+            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
           >
             <Link2 size={15} /> LinkedIn
           </PremiumButton>
@@ -298,7 +298,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5"
         >
           {stats.map(({ value, suffix, label }, i) => (
             <motion.div
@@ -306,7 +306,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl p-6 flex flex-col gap-2 transition-all duration-300"
+              className="rounded-2xl p-4 sm:p-5 md:p-6 flex flex-col gap-1.5 sm:gap-2 transition-all duration-300"
               style={{
                 background: 'rgba(255,255,255,0.055)',
                 border: '1px solid rgba(255,255,255,0.11)',
@@ -318,13 +318,13 @@ export default function Hero() {
                 className="font-black leading-none text-white"
                 style={{
                   fontFamily: 'Montserrat, sans-serif',
-                  fontSize: 'clamp(30px, 3.5vw, 42px)',
+                  fontSize: 'clamp(26px, 3vw, 42px)',
                 }}
               >
                 <AnimatedCounter value={value} suffix={suffix} />
               </span>
               <span
-                className="text-sm font-medium"
+                className="text-xs sm:text-sm font-medium"
                 style={{ color: 'rgba(203,213,225,0.85)', letterSpacing: '0.01em' }}
               >
                 {label}
@@ -339,10 +339,10 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden sm:flex"
         style={{ zIndex: 10 }}
       >
-        <div className="w-px h-12 relative overflow-hidden">
+        <div className="w-px h-10 sm:h-12 relative overflow-hidden">
           <motion.div
             className="absolute top-0 left-0 right-0 h-full"
             style={{ background: 'linear-gradient(to bottom, transparent, #818cf8, transparent)' }}
