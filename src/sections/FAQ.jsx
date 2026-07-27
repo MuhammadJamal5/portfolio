@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus, HelpCircle } from 'lucide-react'
+import { Plus, Minus } from 'lucide-react'
 
 const faqs = [
   {
@@ -27,48 +27,55 @@ export default function FAQ() {
   const toggle = i => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section id="faq" className="py-24 px-6 bg-[#000000] relative">
+    <section id="faq" className="py-24 px-6 bg-[#06060a] relative">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-indigo-400 font-semibold mb-3">
-            FAQ
-          </span>
+          <div className="vizer-badge mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+            <span>FREQUENTLY ASKED QUESTIONS</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight mb-3">
-            Frequently Asked Questions.
+            Got Questions? Answers Below.
           </h2>
-          <p className="text-zinc-400 text-sm max-w-lg mx-auto font-normal">
+          <p className="text-slate-400 text-sm max-w-lg mx-auto font-normal">
             Everything you need to know about my video editing and AI production workflow.
           </p>
         </motion.div>
 
+        {/* Dentora Clinic Framer Motion Accordions */}
         <div className="flex flex-col gap-4">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 15 }}
+                layout
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="nubien-card overflow-hidden transition-all duration-300"
+                transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="vizer-card overflow-hidden transition-all duration-300"
               >
                 <button
                   onClick={() => toggle(i)}
                   className="w-full p-6 text-left flex items-center justify-between gap-4 font-semibold text-white text-base sm:text-lg hover:text-indigo-300 transition-colors"
                 >
                   <span>{faq.q}</span>
-                  <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all ${
-                    isOpen
-                      ? 'bg-indigo-600 border-indigo-500 text-white'
-                      : 'bg-white/5 border-white/10 text-zinc-400'
-                  }`}>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                      isOpen
+                        ? 'bg-indigo-600 border-indigo-500 text-white'
+                        : 'bg-white/5 border-white/10 text-slate-400'
+                    }`}
+                  >
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
-                  </div>
+                  </motion.div>
                 </button>
 
                 <AnimatePresence>
@@ -77,8 +84,8 @@ export default function FAQ() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-6 text-zinc-400 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-4 font-normal"
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="px-6 pb-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-4 font-normal"
                     >
                       {faq.a}
                     </motion.div>

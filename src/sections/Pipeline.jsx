@@ -30,40 +30,44 @@ const steps = [
 
 export default function Pipeline() {
   return (
-    <section id="pipeline" className="py-24 px-6 bg-[#000000] relative">
+    <section id="pipeline" className="py-24 px-6 bg-[#06060a] relative">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 text-center md:text-left"
         >
-          <span className="inline-block px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-cyan-400 font-semibold mb-3">
-            Production Process
-          </span>
+          <div className="vizer-badge mb-3">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+            <span>PRODUCTION PROCESS</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight max-w-2xl">
             Four Steps from Script to Final Master.
           </h2>
         </motion.div>
 
-        {/* 4 Process Step Cards */}
+        {/* Dentora & Confezence Animated 4-Step Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map(({ num, title, desc, icon: Icon }, i) => (
             <motion.div
               key={num}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="nubien-card p-6 flex flex-col justify-between group cursor-default"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="vizer-card p-6 flex flex-col justify-between group cursor-default"
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-3xl font-extrabold text-zinc-600 group-hover:text-indigo-400 transition-colors">
+                  <motion.span
+                    whileHover={{ scale: 1.15, color: '#818cf8' }}
+                    className="text-3xl font-extrabold text-slate-600 transition-colors"
+                  >
                     {num}
-                  </span>
-                  <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                  </motion.span>
+                  <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                     <Icon size={18} />
                   </div>
                 </div>
@@ -71,7 +75,7 @@ export default function Pipeline() {
                 <h3 className="text-sm sm:text-base font-semibold text-white mb-2">
                   {title}
                 </h3>
-                <p className="text-zinc-400 text-xs leading-relaxed font-normal">
+                <p className="text-slate-400 text-xs leading-relaxed font-normal">
                   {desc}
                 </p>
               </div>
