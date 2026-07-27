@@ -1,324 +1,140 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion'
-import { ArrowDown, Link2, Mail } from 'lucide-react'
-import PremiumButton from '../components/PremiumButton'
-import Particles from '../components/Particles'
-import SceneCanvas from '../components/three/SceneCanvas'
-import FloatingFrames from '../components/three/FloatingFrames'
+import { motion } from 'framer-motion'
+import { ArrowDown, ArrowUpRight, Sparkles, Film, Cpu, Zap, Radio } from 'lucide-react'
 import { navClick } from '../utils/smoothScroll'
 
-const roles = ['AI Motion Artist', 'Senior Video Editor', 'Motion Graphics Designer', 'Creative Technologist']
-
-const stats = [
-  { value: 3,  suffix: '+', label: 'Years Experience' },
-  { value: 10, suffix: '+', label: 'Videos / Month' },
-  { value: 30, suffix: '%', label: 'Faster AI Pipeline' },
-  { value: 8,  suffix: '+', label: 'Client Brands' },
+const techStack = [
+  'Premiere Pro',
+  'After Effects',
+  'ComfyUI',
+  'Runway Gen-3',
+  'ElevenLabs AI',
+  'DaVinci Resolve',
+  'HeyGen LipSync',
+  'Midjourney v6',
 ]
 
-function SplitName({ text, wordIndex, charDelay = 0.035 }) {
-  return (
-    <div style={{ overflow: 'hidden', paddingBottom: '0.04em', lineHeight: 1.0, perspective: '600px' }}>
-      {text.split('').map((char, ci) => (
-        <motion.span
-          key={ci}
-          initial={{ rotateX: -90, y: '30%', opacity: 0 }}
-          animate={{ rotateX: 0, y: 0, opacity: 1 }}
-          transition={{
-            duration: 0.75,
-            delay: 0.25 + wordIndex * 0.18 + ci * charDelay,
-            ease: [0.175, 0.885, 0.32, 1.275],
-          }}
-          style={{ display: 'inline-block', transformOrigin: 'bottom center' }}
-        >
-          {char}
-        </motion.span>
-      ))}
-    </div>
-  )
-}
-
-function AnimatedCounter({ value, suffix }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const started = useRef(false)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true
-          const duration = 1600
-          const start = performance.now()
-          const tick = (now) => {
-            const t = Math.min((now - start) / duration, 1)
-            const ease = 1 - Math.pow(1 - t, 4)
-            setCount(Math.floor(ease * value))
-            if (t < 1) requestAnimationFrame(tick)
-            else setCount(value)
-          }
-          requestAnimationFrame(tick)
-        }
-      },
-      { threshold: 0.1 },
-    )
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [value])
-
-  return <span ref={ref}>{count}{suffix}</span>
-}
+const stats = [
+  { value: '3+', label: 'Years Experience' },
+  { value: '10+', label: 'Videos / Month' },
+  { value: '30%', label: 'Faster AI Pipeline' },
+  { value: '8+', label: 'Global Brands' },
+]
 
 export default function Hero() {
-  const sectionRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const contentY       = useTransform(scrollYProgress, [0, 0.6], [0, -80])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.42], [1, 0])
-  const bgScale        = useTransform(scrollYProgress, [0, 1], [1, 1.14])
-
-  const [roleIndex, setRoleIndex] = useState(0)
-  useEffect(() => {
-    const id = setInterval(() => setRoleIndex(i => (i + 1) % roles.length), 3200)
-    return () => clearInterval(id)
-  }, [])
-
-  const spotlightRef = useRef(null)
-  const rawX = useMotionValue(0)
-  const rawY = useMotionValue(0)
-  const mx = useSpring(rawX, { stiffness: 60, damping: 18 })
-  const my = useSpring(rawY, { stiffness: 60, damping: 18 })
-
-  const glow1X = useTransform(mx, v => v * 44)
-  const glow1Y = useTransform(my, v => v * 30)
-  const glow2X = useTransform(mx, v => v * -32)
-  const glow2Y = useTransform(my, v => v * -24)
-  const glow3X = useTransform(mx, v => v * 26)
-  const glow3Y = useTransform(my, v => v * 20)
-
-  const nameTiltX = useTransform(my, v => v * -10)
-  const nameTiltY = useTransform(mx, v => v * 8)
-
-  useEffect(() => {
-    const hero = sectionRef.current
-    if (!hero) return
-    const onMove = (e) => {
-      const r = hero.getBoundingClientRect()
-      rawX.set((e.clientX - r.left - r.width / 2) / r.width)
-      rawY.set((e.clientY - r.top - r.height / 2) / r.height)
-      if (spotlightRef.current) {
-        const px = ((e.clientX - r.left) / r.width) * 100
-        const py = ((e.clientY - r.top) / r.height) * 100
-        spotlightRef.current.style.background = `radial-gradient(ellipse 50% 42% at ${px}% ${py}%, rgba(129,140,248,0.11) 0%, transparent 68%)`
-      }
-    }
-    const onLeave = () => {
-      rawX.set(0); rawY.set(0)
-      if (spotlightRef.current) spotlightRef.current.style.background = 'none'
-    }
-    hero.addEventListener('mousemove', onMove, { passive: true })
-    hero.addEventListener('mouseleave', onLeave)
-    return () => {
-      hero.removeEventListener('mousemove', onMove)
-      hero.removeEventListener('mouseleave', onLeave)
-    }
-  }, [rawX, rawY])
-
   return (
     <section
       id="home"
-      ref={sectionRef}
-      className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-center overflow-hidden bg-[#07070a]"
+      className="relative min-h-[90vh] lg:min-h-screen flex flex-col justify-center pt-32 pb-20 px-4 sm:px-8 overflow-hidden nubien-grid-bg"
     >
-      {/* Background ambient lighting — subtle, non-intrusive */}
+      {/* Background ambient radial gradients */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle 800px at 50% -20%, rgba(99,102,241,0.15), transparent 70%), radial-gradient(circle 600px at 85% 60%, rgba(168,85,247,0.08), transparent 60%)',
+            'radial-gradient(circle 800px at 50% 20%, rgba(99,102,241,0.12), transparent 70%), radial-gradient(circle 600px at 80% 70%, rgba(168,85,247,0.06), transparent 60%)',
         }}
       />
 
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 md:pb-24 w-full"
-      >
-        {/* Eyebrow badge */}
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        {/* Eyebrow Pill */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full mb-6 sm:mb-8"
-          style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-semibold text-slate-300 tracking-wide">
-            Available for Select Projects & Agency Roles — Cairo, Egypt
-          </span>
+          <div className="nubien-badge">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>AI MOTION ARTIST & SENIOR VIDEO EDITOR</span>
+          </div>
         </motion.div>
 
-        {/* Headline / Name */}
+        {/* Main Massive Headline */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 sm:mb-6"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-5xl mb-8"
         >
-          <h1
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[0.98]"
-            style={{ fontFamily: 'Montserrat, Syne, sans-serif' }}
-          >
-            Muhammed Jamal
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.98] text-white">
+            CRAFTING HIGH-IMPACT{' '}
+            <span className="nubien-text-glow">AI MOTION & VIDEO</span> PRODUCTIONS.
           </h1>
         </motion.div>
 
-        {/* Dynamic Role */}
-        <div className="mb-6 sm:mb-8 h-10 sm:h-12 flex items-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={roleIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="flex items-center gap-3"
-            >
-              <div className="w-1 h-7 rounded-full bg-indigo-500" />
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-indigo-200">
-                {roles[roleIndex]}
-              </span>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Tagline */}
+        {/* Subtitle Paragraph */}
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="text-base sm:text-lg max-w-xl leading-relaxed mb-8 sm:mb-10 md:mb-12"
-          style={{ color: 'rgba(148,163,184,0.85)' }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl text-base sm:text-xl text-zinc-400 leading-relaxed mb-10 font-normal"
         >
-          Psychology-driven storytelling meets cutting-edge AI production.{' '}
-          I craft content that makes audiences{' '}
-          <em className="not-italic font-semibold" style={{ color: '#e2e8f0' }}>stop scrolling</em>{' '}
-          and brands{' '}
-          <em className="not-italic font-semibold" style={{ color: '#e2e8f0' }}>impossible to ignore</em>.
+          Psychology-driven storytelling meets cutting-edge generative AI. Crafting high-converting brand films, SaaS demos, and viral social spots engineered to stop the scroll.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-12 sm:mb-16 md:mb-20"
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16"
         >
-          <PremiumButton
-            as="a"
+          <a
             href="#work"
             onClick={e => navClick(e, '#work')}
-            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
-            icon={
-              <motion.span
-                animate={{ y: [0, 4, 0] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-                className="inline-flex"
-              >
-                <ArrowDown size={15} />
-              </motion.span>
-            }
+            className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all duration-200 shadow-lg group"
           >
-            View My Work
-          </PremiumButton>
+            <span>Explore Selected Work</span>
+            <ArrowDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
+          </a>
 
-          <PremiumButton
-            as="a"
-            variant="ghost"
+          <a
             href="mailto:mg32871@gmail.com"
-            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full nubien-card text-white font-semibold text-sm hover:bg-white/10 transition-all duration-200"
           >
-            <Mail size={15} /> Let's Talk
-          </PremiumButton>
-
-          <PremiumButton
-            as="a"
-            variant="ghost"
-            href="https://www.linkedin.com/in/muhammedjamalvfx/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 sm:px-8 py-3.5 sm:py-4 text-sm justify-center"
-          >
-            <Link2 size={15} /> LinkedIn
-          </PremiumButton>
-
+            <span>Let's Talk Project</span>
+            <ArrowUpRight size={16} className="text-zinc-400" />
+          </a>
         </motion.div>
 
-        {/* Stats grid */}
+        {/* Stats Strip */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5"
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8 nubien-card mb-16"
         >
-          {stats.map(({ value, suffix, label }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl p-4 sm:p-5 md:p-6 flex flex-col gap-1.5 sm:gap-2 transition-all duration-300"
-              style={{
-                background: 'rgba(255,255,255,0.055)',
-                border: '1px solid rgba(255,255,255,0.11)',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(129,140,248,0.1)'; e.currentTarget.style.borderColor = 'rgba(129,140,248,0.28)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.055)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.11)' }}
-            >
-              <span
-                className="font-black leading-none text-white"
-                style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontSize: 'clamp(26px, 3vw, 42px)',
-                }}
-              >
-                <AnimatedCounter value={value} suffix={suffix} />
-              </span>
-              <span
-                className="text-xs sm:text-sm font-medium"
-                style={{ color: 'rgba(203,213,225,0.85)', letterSpacing: '0.01em' }}
-              >
-                {label}
-              </span>
-            </motion.div>
+          {stats.map(({ value, label }) => (
+            <div key={label} className="flex flex-col gap-1">
+              <span className="text-3xl sm:text-4xl font-black text-white">{value}</span>
+              <span className="text-xs text-zinc-400 font-medium">{label}</span>
+            </div>
           ))}
         </motion.div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden sm:flex"
-        style={{ zIndex: 10 }}
-      >
-        <div className="w-px h-10 sm:h-12 relative overflow-hidden">
-          <motion.div
-            className="absolute top-0 left-0 right-0 h-full"
-            style={{ background: 'linear-gradient(to bottom, transparent, #818cf8, transparent)' }}
-            animate={{ y: ['-100%', '200%'] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
-          />
-        </div>
-        <span className="label" style={{ color: 'rgba(100,116,139,0.4)', fontSize: 10 }}>scroll</span>
-      </motion.div>
+        {/* Tech Stack Marquee Strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="pt-6 border-t border-white/10"
+        >
+          <p className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-4">
+            Production Engine & AI Stack
+          </p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            {techStack.map(tool => (
+              <span
+                key={tool}
+                className="px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-xs font-medium text-zinc-300"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   )
 }

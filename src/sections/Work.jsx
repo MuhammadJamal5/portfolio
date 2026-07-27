@@ -1,79 +1,51 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Play } from 'lucide-react'
-import { SectionLabel } from './About'
+import { Play, ArrowUpRight } from 'lucide-react'
 import VideoLightbox from '../components/VideoLightbox'
 import { featured, shorts, thumbUrl } from '../data/videos'
 
-const rise = {
-  hidden: { opacity: 0, y: 40 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
-  }),
-}
-
-function PlayBadge({ size = 56 }) {
-  return (
-    <motion.div
-      className="flex items-center justify-center rounded-full"
-      style={{
-        width: size, height: size,
-        background: 'linear-gradient(120deg, #7c3aed, #ec4899)',
-        boxShadow: '0 10px 30px -8px rgba(168,85,247,0.7)',
-      }}
-      initial={{ scale: 0.9 }}
-      whileHover={{ scale: 1.1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-    >
-      <Play size={size * 0.38} className="text-white translate-x-[1px]" fill="white" />
-    </motion.div>
-  )
-}
-
-function VideoCard({ video, i, onOpen, short = false }) {
+function VideoCard({ video, onOpen, isShort = false }) {
   return (
     <motion.button
-      variants={rise}
-      custom={i}
-      onClick={() => onOpen(video)}
-      className="group relative block w-full overflow-hidden rounded-2xl text-left cursor-pointer"
-      style={{
-        aspectRatio: short ? '9 / 16' : '16 / 9',
-        border: '1px solid rgba(255,255,255,0.08)',
-        background: '#0a0a14',
-      }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+      onClick={() => onOpen(video)}
+      className="group relative block w-full nubien-card overflow-hidden text-left cursor-pointer"
+      style={{ aspectRatio: isShort ? '9 / 16' : '16 / 9' }}
     >
-      {/* thumbnail */}
+      {/* Thumbnail */}
       <img
         src={thumbUrl(video.id)}
         alt={video.title}
         loading="lazy"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      {/* gradient scrim */}
+
+      {/* Gradient Overlay */}
       <div
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(to top, rgba(5,5,10,0.92) 0%, rgba(5,5,10,0.15) 45%, rgba(5,5,10,0.35) 100%)' }}
+        className="absolute inset-0 transition-opacity duration-300"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(8,8,12,0.95) 0%, rgba(8,8,12,0.2) 50%, rgba(8,8,12,0.4) 100%)',
+        }}
       />
-      {/* play badge */}
+
+      {/* Play Icon Badge */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="opacity-85 group-hover:opacity-100 transition-opacity">
-          <PlayBadge size={short ? 46 : 60} />
+        <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
+          <Play size={20} className="translate-x-[1px]" fill="currentColor" />
         </div>
       </div>
-      {/* meta */}
-      <div className="absolute left-0 right-0 bottom-0 p-5">
-        <span
-          className="inline-block mb-2 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide uppercase"
-          style={{ background: 'rgba(167,139,250,0.16)', color: '#c4b5fd', border: '1px solid rgba(167,139,250,0.25)' }}
-        >
+
+      {/* Video Info Bottom Meta */}
+      <div className="absolute left-0 right-0 bottom-0 p-5 sm:p-6 flex flex-col gap-2">
+        <span className="inline-self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/10 text-white backdrop-blur-md border border-white/15 w-fit">
           {video.category}
         </span>
-        <h3 className="text-white font-bold leading-tight" style={{ fontFamily: 'Syne, sans-serif', fontSize: short ? 15 : 20 }}>
+        <h3 className="text-white font-bold text-lg sm:text-xl leading-snug">
           {video.title}
         </h3>
       </div>
@@ -82,66 +54,43 @@ function VideoCard({ video, i, onOpen, short = false }) {
 }
 
 export default function Work() {
-  const [active, setActive] = useState(null)
+  const [activeVideo, setActiveVideo] = useState(null)
 
   return (
-    <section id="work" className="py-36 px-6 relative overflow-hidden" style={{ background: '#05050d' }}>
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(67,56,202,0.1) 0%, transparent 60%)' }}
-      />
+    <section id="work" className="py-28 px-4 sm:px-8 relative bg-[#08080c]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div className="nubien-badge mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+              <span>SELECTED WORKS</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+              PROVEN COMMERCIAL & CREATIVE OUTPUT.
+            </h2>
+          </div>
+          <p className="max-w-md text-zinc-400 text-sm leading-relaxed">
+            From high-converting SaaS product demos to narrative brand films and viral social reels. Click any piece to play.
+          </p>
+        </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <SectionLabel label="Selected Work" />
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[clamp(38px,6vw,76px)] font-black text-white leading-[0.95] tracking-tight mt-6 mb-4"
-          style={{ fontFamily: 'Syne, Montserrat, sans-serif' }}
-        >
-          Work that <span className="shimmer-text">moves</span>.
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-xl mb-16 leading-relaxed"
-          style={{ color: 'rgba(148,163,184,0.85)' }}
-        >
-          Ads, brand films, and social reels — edited, graded, and AI-crafted. Click any piece to watch.
-        </motion.p>
-
-        {/* Featured landscape videos */}
-        <motion.div
-          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-          className={`grid gap-6 mb-8 ${featured.length > 1 ? 'md:grid-cols-2' : 'max-w-3xl mx-auto'}`}
-        >
-          {featured.map((v, i) => (
-            <VideoCard key={v.id} video={v} i={i} onOpen={setActive} />
+        {/* Featured 16:9 Landscape Videos Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {featured.map(v => (
+            <VideoCard key={v.id} video={v} onOpen={setActiveVideo} />
           ))}
-        </motion.div>
+        </div>
 
-        {/* Shorts / reels grid */}
-        <motion.div
-          variants={{ show: { transition: { staggerChildren: 0.06 } } }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
-        >
-          {shorts.map((v, i) => (
-            <VideoCard key={v.id} video={v} i={i} onOpen={setActive} short />
+        {/* Vertical Short Reels Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {shorts.map(v => (
+            <VideoCard key={v.id} video={v} onOpen={setActiveVideo} isShort />
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      <VideoLightbox video={active} onClose={() => setActive(null)} />
+      <VideoLightbox video={activeVideo} onClose={() => setActiveVideo(null)} />
     </section>
   )
 }
