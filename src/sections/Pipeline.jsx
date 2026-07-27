@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { FileText, Cpu, Film, Sliders, Sparkles } from 'lucide-react'
+import { FileText, Cpu, Film, Sliders } from 'lucide-react'
 
 const steps = [
   {
@@ -30,22 +30,20 @@ const steps = [
 
 export default function Pipeline() {
   return (
-    <section id="pipeline" className="py-28 px-6 bg-[#000000] relative nubien-grid-bg">
+    <section id="pipeline" className="py-24 px-6 bg-[#000000] relative">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center md:text-left"
+          className="mb-12 text-center md:text-left"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-cyan-400 font-bold mb-4 uppercase tracking-wider">
-            <Sparkles size={12} />
-            <span>Production Process</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight max-w-3xl">
-            FOUR STEPS FROM SCRIPT TO FINAL CINEMATIC MASTER.
+          <span className="inline-block px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs text-cyan-400 font-semibold mb-3">
+            Production Process
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight max-w-2xl">
+            Four Steps from Script to Final Master.
           </h2>
         </motion.div>
 
@@ -54,27 +52,26 @@ export default function Pipeline() {
           {steps.map(({ num, title, desc, icon: Icon }, i) => (
             <motion.div
               key={num}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -6 }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
               className="nubien-card p-6 flex flex-col justify-between group cursor-default"
             >
               <div>
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-4xl font-black text-zinc-600 group-hover:text-indigo-400 transition-colors">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-3xl font-extrabold text-zinc-600 group-hover:text-indigo-400 transition-colors">
                     {num}
                   </span>
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    <Icon size={20} />
+                  <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                    <Icon size={18} />
                   </div>
                 </div>
 
-                <h3 className="text-base font-extrabold text-white mb-3">
+                <h3 className="text-sm sm:text-base font-semibold text-white mb-2">
                   {title}
                 </h3>
-                <p className="text-zinc-400 text-xs leading-relaxed font-medium">
+                <p className="text-zinc-400 text-xs leading-relaxed font-normal">
                   {desc}
                 </p>
               </div>

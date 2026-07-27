@@ -30,45 +30,44 @@
   section { scroll-margin-top: 90px; }
 }
 
-@layer utilities {
-  /* Nubien Grid Background Pattern */
-  .nubien-grid-bg {
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
+/* Infinite Marquee Keyframe */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
 
-  /* Animated Glowing Border Pulse */
-  @keyframes borderPulse {
-    0%, 100% { border-color: rgba(99, 102, 241, 0.3); box-shadow: 0 0 15px rgba(99, 102, 241, 0.15); }
-    50% { border-color: rgba(168, 85, 247, 0.6); box-shadow: 0 0 30px rgba(168, 85, 247, 0.3); }
-  }
-  .animate-border-pulse {
-    animation: borderPulse 4s infinite ease-in-out;
-  }
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
 
-  /* Nubien Bento Card Base */
-  .nubien-card {
-    background: rgba(18, 18, 24, 0.65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
 
-  .nubien-card:hover {
-    border-color: rgba(165, 180, 252, 0.4);
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
-  }
+/* Ambient Pulse Animations */
+@keyframes domeGlow {
+  0%, 100% { transform: translateX(-50%) scaleY(1); opacity: 0.8; }
+  50% { transform: translateX(-50%) scaleY(1.12); opacity: 1; }
+}
 
-  /* Shimmer Text Glow */
-  .nubien-text-glow {
-    background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.animate-dome-glow {
+  animation: domeGlow 5s ease-in-out infinite;
+}
+
+/* Nubien Bento Card Base */
+.nubien-card {
+  background: rgba(15, 15, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nubien-card:hover {
+  border-color: rgba(165, 180, 252, 0.35);
+  transform: translateY(-50px) scale(1.01);
+  box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
 }
