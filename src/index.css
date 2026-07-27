@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
 @layer base {
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', system-ui, sans-serif !important;
+  }
 
   html { scroll-behavior: smooth; overflow-x: clip; }
 
   body {
-    background: #08080c;
+    background: #000000;
     color: #a1a1aa;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
 
-  ::selection { background: rgba(99,102,241,0.4); color: #fff; }
+  ::selection { background: rgba(99,102,241,0.5); color: #fff; }
   ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #08080c; }
+  ::-webkit-scrollbar-track { background: #000000; }
   ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
 
-  h1, h2, h3, h4 { font-family: 'Montserrat', 'Syne', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.02em; color: #ffffff; }
+  h1, h2, h3, h4, h5, h6, p, span, a, button, input, label {
+    font-family: 'Montserrat', system-ui, sans-serif !important;
+  }
 
   section { scroll-margin-top: 90px; }
 }
@@ -32,40 +39,34 @@
     background-size: 64px 64px;
   }
 
+  /* Animated Glowing Border Pulse */
+  @keyframes borderPulse {
+    0%, 100% { border-color: rgba(99, 102, 241, 0.3); box-shadow: 0 0 15px rgba(99, 102, 241, 0.15); }
+    50% { border-color: rgba(168, 85, 247, 0.6); box-shadow: 0 0 30px rgba(168, 85, 247, 0.3); }
+  }
+  .animate-border-pulse {
+    animation: borderPulse 4s infinite ease-in-out;
+  }
+
   /* Nubien Bento Card Base */
   .nubien-card {
     background: rgba(18, 18, 24, 0.65);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .nubien-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    border-color: rgba(165, 180, 252, 0.4);
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
   }
 
-  /* Nubien Badge Pill */
-  .nubien-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #e4e4e7;
-  }
-
-  /* Shimmer gradient accent */
+  /* Shimmer Text Glow */
   .nubien-text-glow {
-    background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 50%, #6366f1 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
