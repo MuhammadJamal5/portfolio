@@ -2,10 +2,17 @@
 // `orientation` drives layout: 'landscape' (16:9 featured) vs 'short' (9:16 reel).
 export const featured = [
   {
-    id: 'zE8tcOzvUko',
+    id: 'LS0lPuzL5h4',
     title: 'Awqaf — Brand Film',
     category: 'Brand Film',
     blurb: 'Full-length brand film for Awqaf — narrative edit, color grade, and sound design.',
+    orientation: 'landscape',
+  },
+  {
+    id: 'zE8tcOzvUko',
+    title: 'Brand Showcase',
+    category: 'Commercial',
+    blurb: 'Narrative edit, color grade, and sound design.',
     orientation: 'landscape',
   },
 ]
