@@ -3,6 +3,7 @@ import Particles from './components/Particles'
 import Nav from './components/Nav'
 import Hero from './sections/Hero'
 import Work from './sections/Work'
+import Metrics from './sections/Metrics'
 import About from './sections/About'
 import Pipeline from './sections/Pipeline'
 import FAQ from './sections/FAQ'
@@ -19,6 +20,7 @@ export default function App() {
       <main className="relative z-10">
         <Hero />
         <Work />
+        <Metrics />
         <About />
         <Pipeline />
         <FAQ />

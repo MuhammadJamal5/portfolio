@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
+import SceneCanvas from '../components/three/SceneCanvas'
+import FloatingFrames from '../components/three/FloatingFrames'
 import { navClick } from '../utils/smoothScroll'
 
 const roles = [
@@ -36,10 +38,20 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#000000] text-center"
     >
+      {/* 3D Floating Glass Frames Canvas - High-End $10k Visual Feature */}
+      <SceneCanvas
+        className="absolute pointer-events-none select-none inset-0 opacity-40 sm:opacity-75 transition-opacity"
+        style={{ width: '100%', height: '100%', zIndex: 1 }}
+        cameraZ={5.2}
+        glow="rgba(99,102,241,0.2)"
+      >
+        <FloatingFrames />
+      </SceneCanvas>
+
       {/* Ambient background lighting */}
       <motion.div
         animate={{
-          opacity: [0.15, 0.28, 0.15],
+          opacity: [0.15, 0.3, 0.15],
           scale: [1, 1.1, 1],
         }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
@@ -47,7 +59,8 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 65% 45% at 50% 15%, rgba(99, 102, 241, 0.2) 0%, transparent 65%)',
+            'radial-gradient(ellipse 65% 45% at 50% 15%, rgba(99, 102, 241, 0.22) 0%, transparent 65%)',
+          zIndex: 2,
         }}
       />
 
@@ -58,7 +71,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 font-medium mb-6"
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 font-medium mb-6 backdrop-blur-md"
         >
           <span className="px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold text-[10px] tracking-wider uppercase">
             2026
@@ -113,7 +126,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="relative max-w-5xl mx-auto w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-400/40 bg-gradient-to-b from-indigo-950/40 via-black to-black shadow-[0_-15px_40px_rgba(99,102,241,0.3)] flex flex-col items-center justify-between"
+        className="relative max-w-5xl mx-auto w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-400/40 bg-gradient-to-b from-indigo-950/50 via-black/90 to-black shadow-[0_-15px_40px_rgba(99,102,241,0.3)] flex flex-col items-center justify-between z-10 backdrop-blur-md"
       >
         {/* Glowing Arch Curve Lighting Effect */}
         <div
