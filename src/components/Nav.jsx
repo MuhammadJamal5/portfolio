@@ -40,8 +40,8 @@ export default function Nav() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#000000]/90 backdrop-blur-xl border-b border-white/10 py-4'
-            : 'bg-transparent py-6'
+            ? 'bg-[#000000]/90 backdrop-blur-xl border-b border-white/10 py-3 sm:py-4'
+            : 'bg-transparent py-4 sm:py-6'
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -54,7 +54,7 @@ export default function Nav() {
             <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-600/30">
               MJ
             </div>
-            <span className="text-white font-semibold tracking-tight text-base">
+            <span className="text-white font-semibold tracking-tight text-sm sm:text-base">
               Muhammed Jamal
             </span>
           </a>
@@ -108,7 +108,7 @@ export default function Nav() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl pt-24 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl pt-20 sm:pt-24 px-6 md:hidden"
           >
             <ul className="flex flex-col gap-6">
               {links.map(({ href, label }) => (
@@ -116,7 +116,7 @@ export default function Nav() {
                   <a
                     href={href}
                     onClick={e => { navClick(e, href); setOpen(false) }}
-                    className="text-2xl font-semibold text-white py-2 block border-b border-zinc-800"
+                    className="text-xl sm:text-2xl font-semibold text-white py-2 block border-b border-zinc-800"
                   >
                     {label}
                   </a>
@@ -138,7 +138,7 @@ export default function Nav() {
       {scrolled && (
         <button
           onClick={() => smoothTo(0)}
-          className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full bg-zinc-900 border border-white/10 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 transition-all"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 rounded-full bg-zinc-900 border border-white/10 text-white flex items-center justify-center shadow-2xl hover:bg-indigo-600 transition-all"
         >
           <ArrowUp size={16} />
         </button>

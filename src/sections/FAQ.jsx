@@ -27,19 +27,19 @@ export default function FAQ() {
   const toggle = i => setOpenIndex(openIndex === i ? null : i)
 
   return (
-    <section id="faq" className="py-24 px-6 bg-[#06060a] relative">
+    <section id="faq" className="py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] relative">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <div className="vizer-badge mb-3">
             <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
             <span>FREQUENTLY ASKED QUESTIONS</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight mb-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-tight mb-3">
             Got Questions? Answers Below.
           </h2>
           <p className="text-slate-400 text-sm max-w-lg mx-auto font-normal">
@@ -62,13 +62,13 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => toggle(i)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 font-semibold text-white text-base sm:text-lg hover:text-indigo-300 transition-colors"
+                  className="w-full p-4 sm:p-5 md:p-6 text-left flex items-center justify-between gap-4 font-semibold text-white text-sm sm:text-base md:text-lg hover:text-indigo-300 transition-colors"
                 >
                   <span>{faq.q}</span>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center shrink-0 transition-all ${
                       isOpen
                         ? 'bg-indigo-600 border-indigo-500 text-white'
                         : 'bg-white/5 border-white/10 text-slate-400'
@@ -85,7 +85,7 @@ export default function FAQ() {
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="px-6 pb-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-4 font-normal"
+                      className="px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-4 font-normal"
                     >
                       {faq.a}
                     </motion.div>

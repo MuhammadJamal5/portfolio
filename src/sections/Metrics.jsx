@@ -133,16 +133,16 @@ const Metrics = () => {
   ];
 
   return (
-    <section className="relative py-24 px-6 bg-[#06060a] overflow-hidden">
+    <section className="relative py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] overflow-hidden">
       {/* Fusion AI ambient background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.08)_0%,_transparent_70%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Dream Motion Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <motion.div
-            className="inline-block vizer-badge px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-semibold tracking-wide uppercase mb-6"
+            className="inline-block vizer-badge px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -152,7 +152,7 @@ const Metrics = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-['Montserrat'] flex flex-wrap justify-center gap-x-3 gap-y-2"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white font-['Montserrat'] flex flex-wrap justify-center gap-x-3 gap-y-2"
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -166,9 +166,8 @@ const Metrics = () => {
           </motion.h2>
         </div>
 
-        {/* Confezence Cards */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
@@ -179,7 +178,7 @@ const Metrics = () => {
               key={index}
               variants={itemVariants}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="vizer-card relative p-8 rounded-[20px] bg-[#0c0c14] border border-white/5 overflow-hidden group"
+              className="vizer-card relative p-5 sm:p-6 md:p-8 rounded-[20px] bg-[#0c0c14] border border-white/5 overflow-hidden group"
             >
               {/* Fusion AI Glow behind number */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-indigo-500/20 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -188,7 +187,7 @@ const Metrics = () => {
                 {metric.icon}
               </div>
               
-              <h3 className="text-4xl md:text-5xl font-bold text-white font-['Montserrat'] mb-4 tracking-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-['Montserrat'] mb-4 tracking-tight">
                 <AnimatedCounter 
                   target={metric.target}
                   prefix={metric.prefix}
@@ -213,7 +212,7 @@ const Metrics = () => {
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#06060a] to-transparent z-10" />
           
           <motion.div
-            className="flex gap-12 items-center whitespace-nowrap"
+            className="flex gap-6 sm:gap-8 md:gap-12 items-center whitespace-nowrap"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
               repeat: Infinity,
@@ -222,7 +221,7 @@ const Metrics = () => {
             }}
           >
             {[...marqueeText, ...marqueeText].map((text, i) => (
-              <div key={i} className="flex items-center gap-12 text-[#94a3b8]/60 font-['Montserrat'] uppercase tracking-widest text-xs md:text-sm">
+              <div key={i} className="flex items-center gap-6 sm:gap-8 md:gap-12 text-[#94a3b8]/60 font-['Montserrat'] uppercase tracking-widest text-xs md:text-sm">
                 <span>{text}</span>
                 {i !== marqueeText.length * 2 - 1 && (
                   <span className="w-1.5 h-1.5 rounded-full bg-indigo-500/40" />

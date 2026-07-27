@@ -46,10 +46,10 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative w-full py-32 px-6 bg-[#06060a] overflow-hidden">
+    <section id="contact" className="relative w-full py-16 sm:py-24 md:py-32 px-6 bg-[#06060a] overflow-hidden">
       {/* FUSION AI: Pulsing ambient radial gradient dome */}
       <motion.div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-[100%] bg-indigo-600/20 blur-[100px] pointer-events-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] max-w-[90vw] h-[400px] rounded-[100%] bg-indigo-600/20 blur-[100px] pointer-events-none"
         animate={pulseAnimation}
       />
 
@@ -65,7 +65,7 @@ const Contact = () => {
 
         {/* DREAM MOTION: Staggered text reveal */}
         <motion.h2 
-          className="mt-8 text-5xl md:text-7xl font-bold text-white tracking-tight"
+          className="mt-5 sm:mt-6 md:mt-8 text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -87,7 +87,7 @@ const Contact = () => {
         </motion.h2>
 
         <motion.p
-          className="mt-8 text-xl text-[#94a3b8] max-w-2xl"
+          className="mt-8 text-sm sm:text-base md:text-xl text-[#94a3b8] max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -97,7 +97,7 @@ const Contact = () => {
         </motion.p>
 
         <motion.div 
-          className="mt-12 flex flex-col sm:flex-row items-center gap-6"
+          className="mt-12 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 md:gap-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -108,7 +108,7 @@ const Contact = () => {
             href="mailto:mg32871@gmail.com"
             whileHover={{ scale: 1.07, y: -3 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
-            className="flex items-center gap-2 px-8 py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full font-medium transition-colors"
+            className="flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 md:px-8 md:py-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full font-medium transition-colors"
           >
             <Mail size={20} />
             Get In Touch
@@ -119,7 +119,7 @@ const Contact = () => {
             onClick={handleCopy}
             whileHover={{ scale: 1.07, y: -3 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
-            className="flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 text-white rounded-full font-medium backdrop-blur-sm border border-white/10 transition-colors w-[240px] justify-center relative overflow-hidden"
+            className="flex items-center gap-2 px-5 py-3 sm:px-6 sm:py-3.5 md:px-8 md:py-4 bg-white/10 hover:bg-white/15 text-white rounded-full font-medium backdrop-blur-sm border border-white/10 transition-colors w-full sm:w-[240px] justify-center relative overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {copied ? (
@@ -152,7 +152,7 @@ const Contact = () => {
         </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-32 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
+      <div className="max-w-7xl mx-auto mt-16 sm:mt-24 md:mt-32 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
         <motion.div 
           className="text-[#94a3b8] text-sm md:text-base text-center md:text-left"
           initial={{ opacity: 0 }}

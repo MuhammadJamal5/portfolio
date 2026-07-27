@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 
 export default function Particles({ count = 60 }) {
+  // Reduce particle count on mobile for GPU performance
+  const mobileCount = typeof window !== 'undefined' ? (window.innerWidth < 480 ? 20 : window.innerWidth < 768 ? 30 : count) : count;
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function Particles({ count = 60 }) {
 
     const colors = ['rgba(124,58,237,', 'rgba(219,39,119,', 'rgba(6,182,212,', 'rgba(167,139,250,']
 
-    const particles = Array.from({ length: count }, () => ({
+    const particles = Array.from({ length: mobileCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 1.5 + 0.3,
@@ -48,11 +50,12 @@ export default function Particles({ count = 60 }) {
           const dx = particles[i].x - particles[j].x
           const dy = particles[i].y - particles[j].y
           const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 120) {
+          const maxDist = w < 768 ? 80 : 120;
+          if (dist < maxDist) {
             ctx.beginPath()
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(124,58,237,${0.04 * (1 - dist / 120)})`
+            ctx.strokeStyle = `rgba(124,58,237,${0.04 * (1 - dist / maxDist)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }

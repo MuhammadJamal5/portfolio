@@ -61,12 +61,12 @@ const stepVariants = (index) => ({
 
 export default function Pipeline() {
   return (
-    <section id="pipeline" className="py-24 px-6 bg-[#06060a] relative overflow-hidden">
+    <section id="pipeline" className="py-16 px-4 sm:py-20 sm:px-6 md:py-24 bg-[#06060a] relative overflow-hidden">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function Pipeline() {
             <span className="vizer-badge text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider mb-4 inline-block">
               Our Process
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 font-montserrat">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-4 font-montserrat">
               Production Pipeline
             </h2>
           </motion.div>
@@ -101,7 +101,7 @@ export default function Pipeline() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 pt-10 lg:pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-6 pt-10 lg:pt-0">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
@@ -116,7 +116,7 @@ export default function Pipeline() {
                   <motion.div
                     whileHover={{ y: -8, scale: 1.02 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    className="vizer-card relative h-full bg-white/[0.02] border border-white/5 rounded-[20px] p-8 overflow-hidden backdrop-blur-xl"
+                    className="vizer-card relative h-full bg-white/[0.02] border border-white/5 rounded-[20px] p-5 sm:p-6 md:p-8 overflow-hidden backdrop-blur-xl"
                   >
                     {/* Border Hover Gradient */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -125,7 +125,7 @@ export default function Pipeline() {
                     </div>
 
                     {/* Step Number */}
-                    <div className="absolute top-6 right-6 font-mono text-5xl font-black text-white/5 group-hover:text-indigo-400/20 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(99,102,241,0)] group-hover:drop-shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                    <div className="absolute top-6 right-6 font-mono text-3xl sm:text-4xl md:text-5xl font-black text-white/5 group-hover:text-indigo-400/20 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(99,102,241,0)] group-hover:drop-shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                       {step.num}
                     </div>
 
@@ -134,12 +134,12 @@ export default function Pipeline() {
                       initial={{ scale: 1 }}
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                      className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300"
                     >
-                      <Icon className="w-6 h-6" />
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     </motion.div>
 
-                    <h3 className="text-xl font-bold text-white mb-4 font-montserrat">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-4 font-montserrat">
                       {step.title}
                     </h3>
                     

@@ -83,7 +83,7 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       variants={itemVariants}
-      className="vizer-card relative flex flex-col p-8 overflow-hidden rounded-[20px] bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 group cursor-pointer h-64 shadow-xl"
+      className="vizer-card relative flex flex-col p-5 sm:p-6 md:p-8 overflow-hidden rounded-[20px] bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 group cursor-pointer h-auto min-h-[220px] sm:min-h-[240px] md:h-64 shadow-xl"
     >
       {/* Fusion AI: Ambient radial gradient glow */}
       <div 
@@ -93,7 +93,7 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
       <div className="relative z-10" style={{ transform: "translateZ(30px)" }}>
         {/* Dentora: Icon container spring animation */}
         <motion.div
-          className="w-14 h-14 flex items-center justify-center rounded-2xl border border-indigo-500/30 text-indigo-400 mb-6"
+          className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl border border-indigo-500/30 text-indigo-400 mb-6"
           animate={{
             backgroundColor: isHovered ? "rgba(99, 102, 241, 0.2)" : "rgba(99, 102, 241, 0)",
             scale: isHovered ? 1.05 : 1,
@@ -101,10 +101,10 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
           }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          <Icon size={28} />
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
         </motion.div>
 
-        <h3 className="text-2xl font-bold text-white mb-2 font-['Montserrat'] tracking-tight">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 font-['Montserrat'] tracking-tight">
           {title}
         </h3>
       </div>
@@ -141,20 +141,20 @@ const BentoCard = ({ title, icon: Icon, tags }) => {
 
 export default function About() {
   return (
-    <section id="about" className="bg-[#06060a] py-24 px-6 min-h-screen flex items-center justify-center overflow-hidden font-['Montserrat']">
+    <section id="about" className="bg-[#06060a] py-16 sm:py-20 md:py-24 px-6 flex items-center justify-center overflow-hidden font-['Montserrat']">
       <div className="max-w-6xl w-full mx-auto relative z-10">
         
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4">
             Capabilities & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Tech Stack</span>
           </h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto text-lg">
+          <p className="text-[#94a3b8] max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Leveraging cutting-edge tools to architect high-retention video content and generative pipelines.
           </p>
         </motion.div>
@@ -165,7 +165,7 @@ export default function About() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 relative perspective-[1000px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 relative perspective-[1000px]"
         >
           {bentoCards.map((card, index) => (
             <BentoCard key={index} {...card} />

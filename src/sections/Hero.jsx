@@ -54,7 +54,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-between pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
+      className="relative min-h-screen flex flex-col justify-between pt-24 sm:pt-32 md:pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
     >
       {/* Fusion AI ambient radial glow — pulsing */}
       <motion.div
@@ -92,7 +92,7 @@ export default function Hero() {
         {/* Dream Motion character-reveal headline */}
         <motion.h1
           variants={itemUp}
-          className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.12] max-w-3xl mb-5"
+          className="text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12] max-w-3xl mb-5"
         >
           {'AI–Driven Video Production'.split(' ').map((word, i) => (
             <motion.span
@@ -141,7 +141,7 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           variants={itemUp}
-          className="max-w-xl text-sm sm:text-base text-slate-400 font-normal leading-relaxed mb-9"
+          className="max-w-xl px-2 sm:px-0 text-sm sm:text-base text-slate-400 font-normal leading-relaxed mb-9"
         >
           Psychology-driven storytelling meets cutting-edge AI production. <br className="hidden sm:inline" />
           Crafting high-converting brand films and viral social reels.
@@ -153,7 +153,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 50, scale: 0.94 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-5xl mx-auto w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between"
+        className="relative max-w-5xl mx-auto w-[95%] sm:w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/50 via-[#06060a] to-[#06060a] shadow-[0_-15px_50px_rgba(99,102,241,0.35)] flex flex-col items-center justify-between"
       >
         {/* Animated glow dome */}
         <div
@@ -162,14 +162,14 @@ export default function Hero() {
         />
 
         {/* Confezence spring-bounce buttons */}
-        <div className="flex flex-row items-center justify-center gap-4 mb-10 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 relative z-10">
           <motion.a
             whileHover={{ scale: 1.07, y: -3 }}
             whileTap={{ scale: 0.93 }}
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             href="#contact"
             onClick={e => navClick(e, '#contact')}
-            className="px-8 py-4 rounded-full bg-white text-black font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors shadow-xl shadow-white/10 flex items-center gap-1.5 group"
+            className="px-5 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-[11px] sm:text-sm hover:bg-slate-50 transition-colors shadow-xl shadow-white/10 flex items-center gap-1.5 group"
           >
             <span>Get In Touch</span>
             <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -181,7 +181,7 @@ export default function Hero() {
             transition={{ type: 'spring', stiffness: 350, damping: 15 }}
             href="#about"
             onClick={e => navClick(e, '#about')}
-            className="px-8 py-4 rounded-full bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold text-xs sm:text-sm hover:bg-indigo-600/60 transition-colors backdrop-blur-md shadow-lg shadow-indigo-600/25"
+            className="px-5 py-3 sm:px-8 sm:py-4 rounded-full bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold text-[11px] sm:text-sm hover:bg-indigo-600/60 transition-colors backdrop-blur-md shadow-lg shadow-indigo-600/25"
           >
             <span>About My Craft</span>
           </motion.a>
@@ -195,7 +195,7 @@ export default function Hero() {
                 key={i}
                 whileHover={{ scale: 1.12 }}
                 transition={{ type: 'spring', stiffness: 400 }}
-                className="flex items-center gap-3 px-6 whitespace-nowrap cursor-default"
+                className="flex items-center gap-3 px-3 sm:px-6 whitespace-nowrap cursor-default"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                 <span className="text-xs font-bold tracking-widest text-slate-300 uppercase hover:text-white transition-colors">{tool}</span>

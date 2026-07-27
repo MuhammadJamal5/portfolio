@@ -19,6 +19,12 @@ export const featured = [
 
 export const shorts = [
   {
+    id: 'HbhVcYkjees',
+    title: 'AI Motion & VFX Reel',
+    category: 'AI / Motion',
+    orientation: 'short',
+  },
+  {
     id: 'EQCEuWGS5AE',
     title: "Adam — Spending Habits",
     category: 'Social / Finance',
