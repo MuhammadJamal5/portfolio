@@ -1,18 +1,36 @@
+let lenisInstance = null
+
+export function setLenis(lenis) {
+  lenisInstance = lenis
+}
+
+export function getLenis() {
+  return lenisInstance
+}
+
 export function smoothTo(targetY) {
-  window.scrollTo({
-    top: targetY,
-    behavior: 'smooth',
-  })
+  if (lenisInstance) {
+    lenisInstance.scrollTo(targetY, { duration: 1.2 })
+  } else {
+    window.scrollTo({
+      top: targetY,
+      behavior: 'smooth',
+    })
+  }
 }
 
 export function navClick(e, href) {
-  e.preventDefault()
+  if (e) e.preventDefault()
   if (href === '#') {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    smoothTo(0)
     return
   }
   const el = document.getElementById(href.slice(1))
   if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
+    if (lenisInstance) {
+      lenisInstance.scrollTo(el, { offset: -70, duration: 1.2 })
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 }

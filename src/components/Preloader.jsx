@@ -1,233 +1,140 @@
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import PremiumButton from './PremiumButton'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Sparkles, CornerDownLeft } from 'lucide-react';
 
-const QUOTE = ['Every', 'frame', 'is', 'a', 'decision.', 'Every', 'cut,', 'a', 'heartbeat.']
+export default function Preloader({ onComplete }) {
+  const [progress, setProgress] = useState(0);
+  const [isReady, setIsReady] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
-export default function Preloader({ onDone }) {
-  const [progress, setProgress] = useState(0)
-  const [phase, setPhase] = useState('loading') // loading | ready | exiting
-
+  // Counter 0 to 100
   useEffect(() => {
-    const duration = 2000
-    const start = performance.now()
-    let raf
-    const tick = (now) => {
-      const t = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - t, 3)
-      setProgress(Math.floor(eased * 100))
-      if (t < 1) raf = requestAnimationFrame(tick)
-      else {
-        setProgress(100)
-        setTimeout(() => setPhase('ready'), 350)
+    const duration = 1400; // ms
+    const startTime = performance.now();
+
+    const updateProgress = (now) => {
+      const elapsed = now - startTime;
+      const pct = Math.min(100, Math.floor((elapsed / duration) * 100));
+      setProgress(pct);
+
+      if (pct < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setIsReady(true);
       }
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [])
+    };
+
+    requestAnimationFrame(updateProgress);
+  }, []);
+
+  // Listen for ENTER key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.key === 'Enter' || e.code === 'Enter') && isReady && !isExiting) {
+        handleEnter();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isReady, isExiting]);
 
   const handleEnter = () => {
-    setPhase('exiting')
-    setTimeout(() => onDone(), 850)
-  }
+    setIsExiting(true);
+    setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 800);
+  };
 
   return (
     <AnimatePresence>
-      {phase !== 'exiting' ? (
+      {!isExiting && (
         <motion.div
-          key="loader"
-          exit={{ clipPath: 'inset(0 0 100% 0)', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-          className="fixed inset-0 z-[9998] flex flex-col items-center justify-center bg-[#050508] select-none overflow-hidden"
+          initial={{ opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[99999] bg-[#06060a] flex flex-col items-center justify-between p-8 sm:p-12 overflow-hidden font-montserrat select-none cursor-pointer"
+          onClick={() => isReady && !isExiting && handleEnter()}
         >
-          {/* ambient radial glow */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 45%, rgba(109,40,217,0.16) 0%, transparent 65%)' }}
-          />
+          {/* Ambient radial glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(99,102,241,0.25),transparent_70%)] pointer-events-none animate-pulse" />
 
-          {/* corner framing */}
-          {[
-            'top-8 left-8 border-t border-l',
-            'top-8 right-8 border-t border-r',
-            'bottom-8 left-8 border-b border-l',
-            'bottom-8 right-8 border-b border-r',
-          ].map((c, i) => (
-            <div key={i} className={`absolute w-12 h-12 ${c}`} style={{ borderColor: 'rgba(129,140,248,0.22)' }} />
-          ))}
+          {/* Top Brand Tag */}
+          <div className="w-full max-w-5xl flex items-center justify-between z-10">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-600/30">
+                MJ
+              </div>
+              <span className="text-xs sm:text-sm font-semibold tracking-widest text-slate-400 uppercase">
+                Muhammed Jamal
+              </span>
+            </div>
+            <span className="text-xs font-mono text-indigo-400/80">PORTFOLIO v2026</span>
+          </div>
 
-          <AnimatePresence mode="wait">
-            {phase === 'loading' ? (
-              /* ── LOADING: camera-lens aperture + counter ── */
-              <motion.div
-                key="loading"
-                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.4 } }}
-                className="relative flex flex-col items-center"
-              >
-                <div className="relative w-40 h-40 flex items-center justify-center">
-                  {/* outer rotating lens ring */}
-                  <motion.svg
-                    viewBox="0 0 100 100"
-                    className="absolute inset-0 w-full h-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                  >
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(129,140,248,0.14)" strokeWidth="1" />
-                    {Array.from({ length: 8 }).map((_, i) => {
-                      const a = (i / 8) * Math.PI * 2
-                      return (
-                        <line
-                          key={i}
-                          x1={50 + Math.cos(a) * 40} y1={50 + Math.sin(a) * 40}
-                          x2={50 + Math.cos(a) * 46} y2={50 + Math.sin(a) * 46}
-                          stroke="rgba(167,139,250,0.5)" strokeWidth="1.4" strokeLinecap="round"
-                        />
-                      )
-                    })}
-                  </motion.svg>
-
-                  {/* progress arc */}
-                  <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full -rotate-90">
-                    <circle
-                      cx="50" cy="50" r="38" fill="none"
-                      stroke="url(#gp)" strokeWidth="2.5" strokeLinecap="round"
-                      strokeDasharray={2 * Math.PI * 38}
-                      strokeDashoffset={2 * Math.PI * 38 * (1 - progress / 100)}
-                    />
-                    <defs>
-                      <linearGradient id="gp" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#818cf8" />
-                        <stop offset="50%" stopColor="#c084fc" />
-                        <stop offset="100%" stopColor="#f472b6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-
-                  {/* counter-rotating inner blades (aperture) */}
-                  <motion.svg
-                    viewBox="0 0 100 100"
-                    className="absolute inset-0 w-full h-full"
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
-                  >
-                    {Array.from({ length: 6 }).map((_, i) => {
-                      const a = (i / 6) * Math.PI * 2
-                      return (
-                        <line
-                          key={i}
-                          x1="50" y1="50"
-                          x2={50 + Math.cos(a) * 26} y2={50 + Math.sin(a) * 26}
-                          stroke="rgba(129,140,248,0.16)" strokeWidth="1"
-                        />
-                      )
-                    })}
-                  </motion.svg>
-
-                  <span
-                    className="relative font-black text-3xl text-white"
-                    style={{ fontFamily: 'Montserrat, system-ui, sans-serif' }}
-                  >
-                    MJ
-                  </span>
-                </div>
-
-                <div className="mt-8 flex items-center gap-4">
-                  <span className="label" style={{ color: 'rgba(100,116,139,0.85)' }}>
-                    Loading Experience
-                  </span>
-                  <span
-                    className="font-mono text-xs tabular-nums"
-                    style={{ color: 'rgba(167,139,250,0.85)', minWidth: '3ch' }}
-                  >
-                    {progress}%
-                  </span>
-                </div>
-              </motion.div>
-            ) : (
-              /* ── READY: quote + Enter button ── */
-              <motion.div
-                key="ready"
-                initial={{ opacity: 0 }}
+          {/* Center Stage */}
+          <div className="relative z-10 flex flex-col items-center text-center max-w-lg">
+            {/* Progress Percentage */}
+            <div className="relative mb-6">
+              <motion.span
+                key={progress}
+                initial={{ opacity: 0.8 }}
                 animate={{ opacity: 1 }}
-                className="relative flex flex-col items-center px-6 text-center"
+                className="text-6xl sm:text-8xl font-black text-white tracking-tighter font-mono"
               >
-                <motion.p
-                  className="label mb-6"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  style={{ color: 'rgba(167,139,250,0.8)' }}
-                >
-                  Muhammed Jamal — AI Motion Artist
-                </motion.p>
+                {progress}
+                <span className="text-indigo-400 text-4xl sm:text-6xl">%</span>
+              </motion.span>
+            </div>
 
-                <h2
-                  className="max-w-2xl text-[clamp(26px,4.2vw,52px)] font-bold leading-[1.15] text-white mb-12"
-                  style={{ fontFamily: 'Syne, Montserrat, sans-serif' }}
-                >
-                  {QUOTE.map((w, i) => (
-                    <motion.span
-                      key={i}
-                      className="inline-block mr-[0.28em]"
-                      initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
-                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      transition={{ delay: 0.15 + i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      {w === 'decision.' || w === 'heartbeat.' ? (
-                        <span className="shimmer-text">{w}</span>
-                      ) : (
-                        w
-                      )}
-                    </motion.span>
-                  ))}
-                </h2>
+            {/* Loading Bar */}
+            <div className="w-64 sm:w-80 h-1.5 bg-white/10 rounded-full overflow-hidden mb-8 border border-white/5">
+              <motion.div
+                className="h-full bg-gradient-to-r from-indigo-500 via-indigo-400 to-purple-400 rounded-full"
+                style={{ width: `${progress}%` }}
+                transition={{ ease: 'linear' }}
+              />
+            </div>
 
+            {/* Prompt when 100% ready */}
+            <div className="h-16 flex items-center justify-center">
+              {isReady ? (
                 <motion.div
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.15 + QUOTE.length * 0.07 + 0.15, type: 'spring', stiffness: 200, damping: 18 }}
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="flex flex-col sm:flex-row items-center gap-3"
                 >
-                  {/* soft pulsing halo behind the button */}
-                  <motion.div
-                    className="relative"
-                    animate={{ scale: [1, 1.04, 1] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                  {/* Enter Key Visual Pill */}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEnter();
+                    }}
+                    className="flex items-center gap-2.5 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 transition-all border border-indigo-400/30 group"
                   >
-                    <PremiumButton
-                      as="button"
-                      onClick={handleEnter}
-                      className="px-11 py-5 text-base tracking-wide"
-                      icon={<ArrowRight size={18} />}
-                    >
-                      Enter Site
-                    </PremiumButton>
-                  </motion.div>
+                    <CornerDownLeft size={16} className="text-indigo-200 group-hover:translate-x-0.5 transition-transform" />
+                    <span>PRESS ENTER TO EXPLORE</span>
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              ) : (
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                  <Sparkles size={14} className="animate-spin text-indigo-400" />
+                  <span>INITIALIZING EXPERIENCE...</span>
+                </div>
+              )}
+            </div>
+          </div>
 
-          {/* bottom progress bar (loading only) */}
-          {phase === 'loading' && (
-            <motion.div
-              style={{
-                scaleX: progress / 100, originX: 0, transformOrigin: 'left',
-                background: 'linear-gradient(90deg, #3730a3, #6d28d9, #be185d, #f472b6)',
-              }}
-              className="absolute bottom-0 left-0 right-0 h-[2px]"
-            />
-          )}
+          {/* Footer note */}
+          <div className="relative z-10 text-[11px] text-slate-500 tracking-wider uppercase">
+            <span>AI MOTION ARTIST & SENIOR VIDEO EDITOR</span>
+          </div>
         </motion.div>
-      ) : (
-        /* exit curtain wipe */
-        <motion.div
-          key="curtain"
-          initial={{ clipPath: 'inset(0 0 0 0)' }}
-          animate={{ clipPath: 'inset(0 0 100% 0)' }}
-          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9998] bg-[#050508]"
-        />
       )}
     </AnimatePresence>
-  )
+  );
 }
