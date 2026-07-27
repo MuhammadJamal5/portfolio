@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
+import Fusion3DHero from '../components/three/Fusion3DHero'
 import { navClick } from '../utils/smoothScroll'
 
 const roles = [
@@ -57,7 +58,7 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col justify-between pt-36 pb-6 px-4 sm:px-6 overflow-hidden bg-[#06060a] text-center"
     >
-      {/* Dream Motion & Fusion AI Ambient Background Glow Pulse */}
+      {/* Fusion AI & Recon Ambient Background Glow Pulse */}
       <motion.div
         animate={{
           opacity: [0.2, 0.38, 0.2],
@@ -72,7 +73,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Top Staggered Container (Dream Motion & Framer Motion Dictionary API) */}
+      {/* Top Staggered Content Container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -135,16 +136,23 @@ export default function Hero() {
         </motion.p>
       </motion.div>
 
-      {/* CURVED NEON DOME CONTAINER (Confezence 3D Physics + Loop Marquee) */}
+      {/* CURVED NEON DOME CONTAINER (Encapsulating 3D Holographic Orb Canvas + Buttons + Marquee) */}
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-5xl mx-auto w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/45 via-[#06060a] to-[#06060a] shadow-[0_-15px_40px_rgba(99,102,241,0.3)] flex flex-col items-center justify-between"
+        className="relative max-w-5xl mx-auto w-full pt-10 pb-6 rounded-t-[100px] sm:rounded-t-[180px] border-t border-indigo-500/40 bg-gradient-to-b from-indigo-950/45 via-[#06060a] to-[#06060a] shadow-[0_-15px_40px_rgba(99,102,241,0.3)] flex flex-col items-center justify-between overflow-hidden"
       >
+        {/* Interactive 3D Holographic Glass Sphere & Torus Ring Canvas floating inside Dome */}
+        <div className="absolute inset-0 pointer-events-none z-0 opacity-80 h-[260px]">
+          <Suspense fallback={null}>
+            <Fusion3DHero />
+          </Suspense>
+        </div>
+
         {/* Glowing Arch Curve Lighting Effect */}
         <div
-          className="absolute inset-0 rounded-t-[100px] sm:rounded-t-[180px] pointer-events-none animate-dome-glow"
+          className="absolute inset-0 rounded-t-[100px] sm:rounded-t-[180px] pointer-events-none animate-dome-glow z-0"
           style={{
             background:
               'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.35) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 80%)',
