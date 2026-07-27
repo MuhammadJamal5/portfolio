@@ -1,11 +1,19 @@
-// Portfolio videos — unlisted on YouTube, embedded via lazy facade.
+// Portfolio videos — supports YouTube unlisted videos & Google Drive files.
 // `orientation` drives layout: 'landscape' (16:9 featured) vs 'short' (9:16 reel).
+// `provider`: 'youtube' (default) | 'drive'
+
 export const featured = [
+  {
+    id: '1C7EVca3osBPvAfsvCig-WKABuZSOuKk0',
+    title: 'Featured Video Showcase (Drive)',
+    category: 'Commercial / Showcase',
+    provider: 'drive',
+    orientation: 'landscape',
+  },
   {
     id: 'LS0lPuzL5h4',
     title: 'SaaS & Tech Product Demo',
     category: 'SaaS & Tech',
-    blurb: 'High-converting SaaS product demo video showcasing UI motion, slick pacing, and feature highlights.',
     orientation: 'landscape',
   },
   {
@@ -58,7 +66,25 @@ export const shorts = [
 
 export const allVideos = [...featured, ...shorts]
 
-// hqdefault always exists (even for shorts); maxres is not guaranteed.
-export const thumbUrl = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`
-export const embedUrl = (id) =>
-  `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+export const thumbUrl = (videoInput) => {
+  if (!videoInput) return ''
+  if (typeof videoInput === 'object') {
+    if (videoInput.provider === 'drive') {
+      return `https://lh3.googleusercontent.com/d/${videoInput.id}`
+    }
+    return `https://img.youtube.com/vi/${videoInput.id}/hqdefault.jpg`
+  }
+  // String ID fallback
+  return `https://img.youtube.com/vi/${videoInput}/hqdefault.jpg`
+}
+
+export const embedUrl = (videoInput) => {
+  if (!videoInput) return ''
+  if (typeof videoInput === 'object') {
+    if (videoInput.provider === 'drive') {
+      return `https://drive.google.com/file/d/${videoInput.id}/preview`
+    }
+    return `https://www.youtube-nocookie.com/embed/${videoInput.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+  }
+  return `https://www.youtube-nocookie.com/embed/${videoInput}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+}

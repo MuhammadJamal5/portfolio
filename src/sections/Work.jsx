@@ -39,7 +39,7 @@ const VideoCard = ({ video, onOpen, isShort }) => {
     >
       <div className="absolute inset-0 overflow-hidden rounded-2xl">
         <motion.img
-          src={thumbUrl(video.id)}
+          src={thumbUrl(video)}
           alt={video.title}
           className="w-full h-full object-cover"
           whileHover={{ scale: 1.06 }}

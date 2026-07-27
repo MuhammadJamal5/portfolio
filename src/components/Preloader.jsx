@@ -9,7 +9,7 @@ export default function Preloader({ onComplete }) {
 
   // Counter 0 to 100
   useEffect(() => {
-    const duration = 1400; // ms
+    const duration = 1300; // ms
     const startTime = performance.now();
 
     const updateProgress = (now) => {
@@ -61,17 +61,17 @@ export default function Preloader({ onComplete }) {
           {/* Ambient radial glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(99,102,241,0.25),transparent_70%)] pointer-events-none animate-pulse" />
 
-          {/* Top Brand Tag */}
+          {/* Top Header Tag */}
           <div className="w-full max-w-5xl flex items-center justify-between z-10">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-600/30">
                 MJ
               </div>
-              <span className="text-xs sm:text-sm font-semibold tracking-widest text-slate-400 uppercase">
+              <span className="text-xs sm:text-sm font-bold tracking-widest text-white uppercase">
                 Muhammed Jamal
               </span>
             </div>
-            <span className="text-[10px] sm:text-xs font-mono text-indigo-400/80">PORTFOLIO v2026</span>
+            <span className="text-[10px] sm:text-xs font-mono text-indigo-300/80 tracking-wider">SELECTED WORKS 2026</span>
           </div>
 
           {/* Center Stage */}
@@ -98,7 +98,7 @@ export default function Preloader({ onComplete }) {
               />
             </div>
 
-            {/* Prompt when 100% ready */}
+            {/* Prompt Button when 100% ready */}
             <div className="h-16 flex items-center justify-center">
               {isReady ? (
                 <motion.div
@@ -114,25 +114,25 @@ export default function Preloader({ onComplete }) {
                       e.stopPropagation();
                       handleEnter();
                     }}
-                    className="flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 transition-all border border-indigo-400/30 group"
+                    className="flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 transition-all border border-indigo-400/30 group"
                   >
                     <CornerDownLeft size={16} className="text-indigo-200 group-hover:translate-x-0.5 transition-transform" />
-                    <span>{isTouchDevice ? 'TAP TO EXPLORE' : 'PRESS ENTER TO EXPLORE'}</span>
+                    <span>{isTouchDevice ? 'TAP TO ENTER STUDIO' : 'ENTER STUDIO'}</span>
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </motion.button>
                 </motion.div>
               ) : (
-                <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-400 uppercase">
                   <Sparkles size={14} className="animate-spin text-indigo-400" />
-                  <span>INITIALIZING EXPERIENCE...</span>
+                  <span>PREPARING REEL...</span>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Footer note */}
-          <div className="relative z-10 text-[11px] text-slate-500 tracking-wider uppercase">
-            <span>AI MOTION ARTIST & SENIOR VIDEO EDITOR</span>
+          {/* Footer Subtitle */}
+          <div className="relative z-10 text-[11px] text-slate-400 font-semibold tracking-widest uppercase">
+            <span>AI MOTION ART & VIDEO PRODUCTION</span>
           </div>
         </motion.div>
       )}

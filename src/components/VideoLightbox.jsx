@@ -58,7 +58,7 @@ export default function VideoLightbox({ video, onClose }) {
             }}
           >
             <iframe
-              src={embedUrl(video.id)}
+              src={embedUrl(video)}
               title={video.title}
               allow="accelerated-analytics; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
