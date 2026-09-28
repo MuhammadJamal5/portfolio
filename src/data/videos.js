@@ -20,6 +20,13 @@ export const featured = [
 
 export const shorts = [
   {
+    id: '1NPrtxWyPp9I5w15wOmeiR1H24QwmnTNa',
+    provider: 'drive',
+    title: 'المثالي — Croissants Commercial',
+    category: 'Commercial / Ad',
+    orientation: 'short',
+  },
+  {
     id: 'HbhVcYkjees',
     title: 'Bath & Body Works — Product Video (Spec)',
     category: 'Commercial / Ad',
